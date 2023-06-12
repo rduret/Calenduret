@@ -40,7 +40,7 @@ class RegistrationController extends AbstractController
             $token = new UsernamePasswordToken($user, 'main', $user->getRoles());
             $tokenStorage->setToken($token);
 
-            return $this->redirectToRoute('app_auth_user');
+            return $this->redirectToRoute('home_user');
         }
 
         return $this->render('registration/register.html.twig', [
