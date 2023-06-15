@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('app_admin', './assets/app_admin.js')
+    .addEntry('template_admin', './assets/template/admin/js/template_admin.js')
 
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
@@ -59,7 +60,7 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
