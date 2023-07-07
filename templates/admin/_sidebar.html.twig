@@ -4,16 +4,15 @@
             <div class="align-middle me-3">Calendrier de l'avent</div>
         </a>
         <ul class="sidebar-nav">
-            <li class="sidebar-header">
+            {# <li class="sidebar-header">
                 Menu principal
-            </li>
-            <li class="sidebar-item">
+            </li> #}
+            {# <li class="sidebar-item">
                 <div class="sidebar-link collapsed" data-bs-target="#test" data-bs-toggle="collapse">
                     Icone   
                     <span class="align-middle">Menu déroulant ?</span>
                 </div>
                 <ul id="test" class="sidebar-dropdown list-unstyled collapse">
-                    {# <li class="sidebar-item {% if url('maroute') == app.request.uri %} active {% endif %}"> #}
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="#">
                             Icone
@@ -21,12 +20,23 @@
                         </a>
                     </li>
                 </ul>
+            </li> #}
+            <li class="sidebar-item {% if url('home_admin') == app.request.uri %} active {% endif %}">
+                <a class="sidebar-link" href="{{ path('home_admin') }}">
+                    <i class="align-middle me-2 fas fa-fw fa-grip-horizontal"></i>
+                    <span class="align-middle">Dashboard</span>
+                </a>
             </li>
-            {# <li class="sidebar-item {% if url(menu.route) == app.request.uri %} active {% endif %}"> #}
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
-                    Icone
-                    <span class="align-middle">Nom</span>
+            <li class="sidebar-item {% if url('user_index') == app.request.uri %} active {% endif %}">
+                <a class="sidebar-link" href="{{ path('user_index') }}">
+                    <i class="align-middle me-2 fas fa-fw fa-user-cog"></i>
+                    <span class="align-middle">Utilisateurs</span>
+                </a>
+            </li>
+            <li class="sidebar-item {% if url('admin_index') == app.request.uri %} active {% endif %}">
+                <a class="sidebar-link" href="{{ path('admin_index') }}">
+                    <i class="align-middle me-2 fas fa-fw fa-user-cog"></i>
+                    <span class="align-middle">Administrateurs</span>
                 </a>
             </li>
         </ul>

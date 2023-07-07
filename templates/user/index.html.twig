@@ -1,0 +1,81 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">{% trans %}Liste des utilisateurs{% endtrans %}</a></li>
+        </ol>
+    </nav>
+    <h1 class="h3 mb-3">{% trans %}Gestion des utilisateurs{% endtrans %}</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Utilisateurs</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped auto-table">
+                        <thead>
+                            <tr>
+                                <th>{% trans %}Nom{% endtrans %}</th>
+                                <th>{% trans %}Prénom{% endtrans %}</th>
+                                <th>{% trans %}Email{% endtrans %}</th>
+                                <th>{% trans %}Actions{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.lastname }}</td>
+                                    <td>{{ user.firstname }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-end">
+                                            {# {% if user_type.allow_switch %}
+                                                {% if user.isEnabled %}
+                                                    <form action="{{ path('user_switch_enable') }}" method="post" class="confirm" data-msg="{% trans %}Désactiver le compte utilisateur ?{% endtrans %}">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('switch_' ~ user.userIdentifier) }}">
+                                                        <input type="hidden" name="identifier" value="{{ user.userIdentifier }}">
+                                                        <button class="btn btn-warning" title="{% trans %}Désactiver le compte utilisateur{% endtrans %}"><i class="fa fa-times"></i></button>
+                                                    </form>
+                                                {% else %}
+                                                    <form action="{{ path('user_switch_enable') }}" method="post" class="confirm" data-msg="{% trans %}Activer le compte utilisateur ?{% endtrans %}">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('switch_' ~ user.userIdentifier) }}">
+                                                        <input type="hidden" name="identifier" value="{{ user.userIdentifier }}">
+                                                        <button class="btn btn-success" title="{% trans %}Activer le compte utilisateur{% endtrans %}"><i class="fa fa-check"></i></button>
+                                                    </form>
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if user_type.allow_edit %}
+                                                <form action="{{ path('user_edit') }}" method="post" class="ms-1">
+                                                    <input type="hidden" name="edit_token" value="{{ csrf_token('edit_' ~ user.userIdentifier) }}">
+                                                    <input type="hidden" name="identifier" value="{{ user.userIdentifier }}">
+                                                    <button class="btn btn-primary" title="{% trans %}Modifier{% endtrans %}"><i class="fa fa-pen"></i></button>
+                                                </form>
+                                            {% endif %}
+                                            {% if user_type.allow_delete %}
+                                                <form action="{{ path('user_delete') }}" method="post" class="confirm ms-1" data-msg="{% trans %}Supprimer l'utilisateur ?{% endtrans %}">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete_' ~ user.userIdentifier) }}">
+                                                    <input type="hidden" name="identifier" value="{{ user.userIdentifier }}">
+                                                    <button class="btn btn-danger" title="{% trans %}Supprimer{% endtrans %}"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            {% endif %} #}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <form action="{{ path('user_new') }}" method="post">
+                        <input type="hidden" name="user_token" value="{{ csrf_token(user_type) }}">
+                        <button class="btn btn-primary w-100">{% trans %}Créer un nouvel utilisateur{% endtrans %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

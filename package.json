@@ -36,6 +36,7 @@
         "flatpickr": "^4.6.13",
         "notyf": "^3.10.0",
         "select2": "^4.1.0-rc.0",
-        "simplebar": "^6.2.5"
+        "simplebar": "^6.2.5",
+        "sweetalert2": "^11.7.12"
     }
 }

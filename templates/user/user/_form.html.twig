@@ -1,0 +1,59 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    {{ form_label(form.firstname, null, { 'label_attr': {'class': 'form-label'} }) }}
+                    {{ form_widget(form.firstname, { 'attr': {'class': 'form-control'} }) }}
+                    <div class="text-danger">
+                        {{ form_errors(form.firstname) }}
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    {{ form_label(form.lastname, null, { 'label_attr': {'class': 'form-label'} }) }}
+                    {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
+                    <div class="text-danger">
+                        {{ form_errors(form.lastname) }}
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    {{ form_label(form.email, null, { 'label_attr': {'class': 'form-label'} }) }}
+                    {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+                    <div class="text-danger">
+                        {{ form_errors(form.email) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    {{ form_label(form.plainPassword.first, null, { 'label_attr': {'class': 'form-label'} }) }}
+                    <div class="input-group show-hide-pwd">
+                        {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
+                        <span class="input-group-text"><i class="far fa-eye" aria-hidden="true"></i></span>
+                    </div>
+                    <div class="text-danger">
+                        {{ form_errors(form.plainPassword.first) }}
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    {{ form_label(form.plainPassword.second, null, { 'label_attr': {'class': 'form-label'} }) }}
+                    <div class="input-group show-hide-pwd">
+                        {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
+                        <span class="input-group-text"><i class="far fa-eye" aria-hidden="true"></i></span>
+                    </div>
+                    <div class="text-danger">
+                        {{ form_errors(form.plainPassword.second) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user_token is defined %}
+        <input type="hidden" name="user_token" value="{{ csrf_token(user_token) }}">
+    {% endif %}
+    {% if identifier is defined %}
+        <input type="hidden" name="identifier" value="{{ identifier }}">
+        <input type="hidden" name="edit_token" value="{{ csrf_token('edit_' ~ identifier) }}">
+    {% endif %}
+    <button class="btn btn-primary w-100">{{ button_label|default('Valider') }}</button>
+{{ form_end(form) }}

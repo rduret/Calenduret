@@ -5,6 +5,7 @@ namespace App\Repository\Auth;
 use App\Entity\Auth\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -55,6 +56,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $this->save($user, true);
     }
+
+    public function findByRole(string $role): array
+   {
+       return $this->createQueryBuilder('u')
+            ->orderBy('u.lastname', 'ASC')
+            ->where('u.roles LIKE :val')
+            ->setParameter('val', '%'.$role.'%')
+            ->getQuery()
+            ->getResult()
+       ;
+   }
 
 //    /**
 //     * @return User[] Returns an array of User objects

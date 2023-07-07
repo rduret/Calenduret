@@ -19,17 +19,14 @@
         <div class="wrapper">
             {% include "admin/_sidebar.html.twig" %}
             <div class="main">
-                {# {% block header %}
-                    {{ render(controller('App\\Controller\\User\\AdminController::header')) }}
+                {% block header %}
+                    {% include "admin/_header.html.twig" %}
                 {% endblock %}
                 <main class="content">
                     <div class="container-fluid p-0">
                         {% block body %}{% endblock %}
                     </div>
                 </main>
-                {% block footer %}
-                    {{ render(controller('App\\Controller\\User\\AdminController::footer')) }}
-                {% endblock %} #}
             </div>
         </div>
     </body>
