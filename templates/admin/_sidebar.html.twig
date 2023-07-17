@@ -27,10 +27,10 @@
                     <span class="align-middle">Dashboard</span>
                 </a>
             </li>
-            <li class="sidebar-item {% if url('calendar') == app.request.uri %} active {% endif %}">
-                <a class="sidebar-link" href="{{ path('home_admin') }}">
+            <li class="sidebar-item {% if url('calendar_index') == app.request.uri %} active {% endif %}">
+                <a class="sidebar-link" href="{{ path('calendar_index') }}">
                     <i class="align-middle me-2 fas fa-fw fa-grip-horizontal"></i>
-                    <span class="align-middle">Dashboard</span>
+                    <span class="align-middle">Liste des calendriers</span>
                 </a>
             </li>
             <li class="sidebar-item {% if url('user_index') == app.request.uri %} active {% endif %}">
