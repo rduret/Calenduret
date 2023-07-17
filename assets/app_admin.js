@@ -3,6 +3,18 @@ import './styles/app_admin.scss';
 const dataTableFr = require('./js/datatable-fr.json');
 const Swal = require("sweetalert2");
 
+const updateConfirmListeners = function () {
+    let confirmElements = document.querySelectorAll(".confirm");
+    confirmElements.forEach(function (confirmElement) {
+        if (confirmElement.nodeName === "FORM") {
+            confirmElement.removeEventListener('submit', sweetConfirm);
+            confirmElement.addEventListener('submit', sweetConfirm);
+        } else {
+            confirmElement.removeEventListener('click', sweetConfirm);
+            confirmElement.addEventListener('click', sweetConfirm);
+        }
+    });
+}
 
 // Datatables Responsive
 $("table.auto-table").DataTable({
@@ -43,19 +55,6 @@ const sweetConfirm = function (e) {
             } else {
                 window.location.href = href;
             }
-        }
-    });
-}
-
-const updateConfirmListeners = function () {
-    let confirmElements = document.querySelectorAll(".confirm");
-    confirmElements.forEach(function (confirmElement) {
-        if (confirmElement.nodeName === "FORM") {
-            confirmElement.removeEventListener('submit', sweetConfirm);
-            confirmElement.addEventListener('submit', sweetConfirm);
-        } else {
-            confirmElement.removeEventListener('click', sweetConfirm);
-            confirmElement.addEventListener('click', sweetConfirm);
         }
     });
 }

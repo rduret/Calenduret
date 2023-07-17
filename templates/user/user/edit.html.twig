@@ -1,15 +1,15 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Créer un utilisateur{% endblock %}
+{% block title %}Modifier un utilisateur{% endblock %}
 
 {% block body %}
     <div class="container-fluid p-0">
-        <h1 class="h3 mb-3">{% trans %}Créer un utilisateur{% endtrans %}</h1>
+        <h1 class="h3 mb-3">{% trans %}Modifier un utilisateur{% endtrans %}</h1>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        {{ include('user/user/_form.html.twig', {'button_label': "Créer l'utilisateur"}) }}
+                        {{ include('user/user/_form.html.twig', {'button_label': "Modifier l'utilisateur"}) }}
                     </div>
                 </div>
             </div>
