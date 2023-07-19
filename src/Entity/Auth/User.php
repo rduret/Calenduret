@@ -3,6 +3,7 @@
 namespace App\Entity\Auth;
 
 use App\Entity\Calendar\Calendar;
+use App\Entity\Calendar\ModelCalendar;
 use App\Repository\Auth\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -41,6 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
+        $this->modelCalendars = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +116,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?string $plainPassword = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ModelCalendar::class)]
+    private Collection $modelCalendars;
+
 
     /**
      * @see UserInterface
@@ -154,6 +159,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ModelCalendar>
+     */
+    public function getModelCalendars(): Collection
+    {
+        return $this->modelCalendars;
+    }
+
+    public function addModelCalendar(ModelCalendar $modelCalendar): self
+    {
+        if (!$this->modelCalendars->contains($modelCalendar)) {
+            $this->modelCalendars->add($modelCalendar);
+            $modelCalendar->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModelCalendar(ModelCalendar $modelCalendar): self
+    {
+        if ($this->modelCalendars->removeElement($modelCalendar)) {
+            // set the owning side to null (unless already changed)
+            if ($modelCalendar->getUser() === $this) {
+                $modelCalendar->setUser(null);
+            }
+        }
 
         return $this;
     }
