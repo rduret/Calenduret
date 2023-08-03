@@ -1,5 +1,6 @@
 import './styles/app_admin.scss';
 
+
 const dataTableFr = require('./js/datatable-fr.json');
 const Swal = require("sweetalert2");
 

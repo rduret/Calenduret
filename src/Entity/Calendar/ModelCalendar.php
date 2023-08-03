@@ -3,10 +3,12 @@
 namespace App\Entity\Calendar;
 
 use App\Entity\Auth\User;
-use App\Repository\Calendar\ModelCalendarRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Types\UuidType;
+use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\Calendar\ModelCalendarRepository;
 
 #[ORM\Entity(repositoryClass: ModelCalendarRepository::class)]
 class ModelCalendar
@@ -25,8 +27,8 @@ class ModelCalendar
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $path = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $uuid = null;
+    #[ORM\Column(type: UuidType::NAME)]   
+    private Uuid $uuid;
 
     #[ORM\ManyToOne(inversedBy: 'modelCalendars')]
     #[ORM\JoinColumn(nullable: false)]
@@ -85,12 +87,12 @@ class ModelCalendar
         return $this;
     }
 
-    public function getUuid(): ?string
+    public function getUuid(): Uuid
     {
         return $this->uuid;
     }
 
-    public function setUuid(string $uuid): self
+    public function setUuid(Uuid $uuid): self
     {
         $this->uuid = $uuid;
 
