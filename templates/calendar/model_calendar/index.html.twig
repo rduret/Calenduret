@@ -27,18 +27,13 @@
                                         <td>{{ model.user.lastname ~ ' ' ~ model.user.firstname }}</td>
                                     {% endif %}
                                     <td>
-                                        {# <div class="d-flex justify-content-end">
-                                            <form action="{{ path('user_edit') }}" method="post" class="ms-1">
-                                                <input type="hidden" name="edit_token" value="{{ csrf_token('edit_' ~ user.userIdentifier) }}">
-                                                <input type="hidden" name="identifier" value="{{ user.userIdentifier }}">
-                                                <button class="btn btn-primary" title="{% trans %}Modifier{% endtrans %}"><i class="fa fa-pen"></i></button>
-                                            </form>
-                                            <form action="{{ path('user_delete') }}" method="post" class="confirm ms-1" data-msg="{% trans %}Supprimer l'utilisateur ?{% endtrans %}">
-                                                <input type="hidden" name="_token" value="{{ csrf_token('delete_' ~ user.userIdentifier) }}">
-                                                <input type="hidden" name="identifier" value="{{ user.userIdentifier }}">
+                                        <div class="d-flex justify-content-end">
+                                            <a href="{{ path('model_calendar_edit', {'id': model.id}) }}" title="{% trans %}Voir{% endtrans %}" target="_blank" class="btn btn-warning"><i class="fa fa-edit"></i> </a>
+                                            <form action="{{ path('model_calendar_delete', {'id': model.id}) }}" method="post" class="confirm ms-1" data-msg="{% trans %}Cela supprimera tous les calendriers liés à ce modèle définitivement. Supprimer le modèle ? {% endtrans %}">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete_' ~ model.id) }}">
                                                 <button class="btn btn-danger" title="{% trans %}Supprimer{% endtrans %}"><i class="fa fa-trash"></i></button>
-                                            </form>
-                                        </div> #}
+                                            </form>                                        
+                                        </div>
                                     </td>
                                 </tr>
                             {% endfor %}
