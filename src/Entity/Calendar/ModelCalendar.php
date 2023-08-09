@@ -21,8 +21,6 @@ class ModelCalendar
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 30)]
-    private ?string $state = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $path = null;
@@ -39,6 +37,9 @@ class ModelCalendar
 
     #[ORM\OneToMany(mappedBy: 'modelCalendar', targetEntity: Calendar::class, orphanRemoval: true)]
     private Collection $calendars;
+
+    #[ORM\Column]
+    private ?bool $isPublished = true;
 
     public function __construct()
     {
@@ -59,18 +60,6 @@ class ModelCalendar
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
-
-    public function setState(string $state): self
-    {
-        $this->state = $state;
 
         return $this;
     }
@@ -167,6 +156,18 @@ class ModelCalendar
                 $calendar->setModelCalendar(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
 
         return $this;
     }

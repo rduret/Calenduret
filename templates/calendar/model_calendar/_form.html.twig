@@ -12,8 +12,13 @@
             </div>
             <div class="row">
                 <div class="mb-3 col-md-12">
+                    {% set isRequiredFile = false %}
+                    {% if model.path == null %}
+                        {% set isRequiredFile = true %}
+                    {% endif %}
+
                     {{ form_label(form.file, null, { 'label_attr': {'class': 'form-label'} }) }}
-                    {{ form_widget(form.file, { 'attr': {'class': 'form-control upload-img', 'data-preview-target': '#preview', 'data-cropped-target': '#cropped-file', 'data-cropper-width': '130', 'data-cropper-height': '200'} }) }}
+                    {{ form_widget(form.file, { 'attr': {'class': 'form-control upload-img', 'data-preview-target': '#preview', 'data-cropped-target': '#cropped-file', 'data-cropper-width': '130', 'data-cropper-height': '200'}, required: isRequiredFile }) }}
                     <div class="text-danger">
                         {{ form_errors(form.file) }}
                     </div>

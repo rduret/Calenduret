@@ -28,11 +28,16 @@
                                     {% endif %}
                                     <td>
                                         <div class="d-flex justify-content-end">
-                                            <a href="{{ path('model_calendar_edit', {'id': model.id}) }}" title="{% trans %}Voir{% endtrans %}" target="_blank" class="btn btn-warning"><i class="fa fa-edit"></i> </a>
+                                            <a href="{{ path('model_calendar_edit', {'id': model.id}) }}" title="{% trans %}Éditer{% endtrans %}" class="btn btn-warning"><i class="fa fa-edit"></i> </a>
+                                            {% if(model.isPublished) %}
+                                                <a href="{{ path('model_calendar_change_state', {'id': model.id}) }}" title="{% trans %}Dépublier{% endtrans %}" class="btn btn-info ms-1"><i class="fas fa-times"></i></a>
+                                            {% else %}
+                                                <a href="{{ path('model_calendar_change_state', {'id': model.id}) }}" title="{% trans %}Publier{% endtrans %}" class="btn btn-success ms-1"><i class="fas fa-check"></i></a>           
+                                            {% endif %}
                                             <form action="{{ path('model_calendar_delete', {'id': model.id}) }}" method="post" class="confirm ms-1" data-msg="{% trans %}Cela supprimera tous les calendriers liés à ce modèle définitivement. Supprimer le modèle ? {% endtrans %}">
                                                 <input type="hidden" name="_token" value="{{ csrf_token('delete_' ~ model.id) }}">
                                                 <button class="btn btn-danger" title="{% trans %}Supprimer{% endtrans %}"><i class="fa fa-trash"></i></button>
-                                            </form>                                        
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

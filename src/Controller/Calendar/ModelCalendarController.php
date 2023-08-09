@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+use function PHPUnit\Framework\fileExists;
 
 class ModelCalendarController extends AbstractController
 {
@@ -53,7 +54,6 @@ class ModelCalendarController extends AbstractController
             }
 
             $modelCalendar->setUser($this->getUser());
-            $modelCalendar->setState('published');
             $uuid = Uuid::v4();
             $modelCalendar->setUuid($uuid);
 
@@ -92,6 +92,11 @@ class ModelCalendarController extends AbstractController
             if ($file !== null) {
                 try {
                     $newFilename = $uploadHandler->uploadFile($file, $request->get('cropped-file'));
+
+                    if(file_exists($modelCalendar->getPath())){
+                        unlink($modelCalendar->getPath());
+                    }
+
                     $modelCalendar->setPath($newFilename);
                 } catch (FileException $e) {
                     $this->addFlash(
@@ -127,8 +132,33 @@ class ModelCalendarController extends AbstractController
     {
 
         if ($this->isCsrfTokenValid('delete_'.$modelCalendar->getId(), $request->request->get('_token'))) {
+            if(file_exists($modelCalendar->getPath())){
+                unlink($modelCalendar->getPath());
+            }
             $modelCalendarRepository->remove($modelCalendar, true);
         }
+
+        return $this->redirectToRoute('model_calendar_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/admin/calendriers/{id}/change-state', name: 'model_calendar_change_state', methods: ['GET'])]
+    public function changeState(ModelCalendar $modelCalendar, ModelCalendarRepository $modelCalendarRepository): Response
+    {
+        if($modelCalendar->isPublished()){
+            $modelCalendar->setIsPublished(false);
+            $this->addFlash(
+                'successs',
+                'Le modèle a bien été dépublié'
+            );
+        } else {
+            $modelCalendar->setIsPublished(true);
+            $this->addFlash(
+                'successs',
+                'Le modèle a bien été publié'
+            );
+        }
+
+        $modelCalendarRepository->save($modelCalendar, true);
 
         return $this->redirectToRoute('model_calendar_index', [], Response::HTTP_SEE_OTHER);
     }
