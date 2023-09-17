@@ -30,4 +30,18 @@
             </div>
         </div>
     </body>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% for type, messages in app.session.flashbag.all() %}
+            {% for key, message in messages %}
+            notyf.open({
+                type: '{{ type }}',
+                message: "{%autoescape false%}{{ message|trans }}{%endautoescape%}",
+                dismissible : true
+            });
+            {% endfor %}
+            {% endfor %}
+        });
+    </script>
 </html>

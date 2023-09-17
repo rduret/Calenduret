@@ -60,7 +60,7 @@ class ModelCalendarController extends AbstractController
             $modelCalendarRepository->save($modelCalendar, true);
 
             $this->addFlash(
-                'successs',
+                'success',
                 'Le modèle a bien été créé'
             );
 
@@ -114,7 +114,7 @@ class ModelCalendarController extends AbstractController
             $modelCalendarRepository->save($modelCalendar, true);
 
             $this->addFlash(
-                'successs',
+                'success',
                 'Le modèle a bien été édité'
             );
 
@@ -138,6 +138,11 @@ class ModelCalendarController extends AbstractController
             $modelCalendarRepository->remove($modelCalendar, true);
         }
 
+        $this->addFlash(
+            'success',
+            'Le modèle a bien été supprimé'
+        );
+
         return $this->redirectToRoute('model_calendar_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -147,13 +152,13 @@ class ModelCalendarController extends AbstractController
         if($modelCalendar->isPublished()){
             $modelCalendar->setIsPublished(false);
             $this->addFlash(
-                'successs',
+                'success',
                 'Le modèle a bien été dépublié'
             );
         } else {
             $modelCalendar->setIsPublished(true);
             $this->addFlash(
-                'successs',
+                'success',
                 'Le modèle a bien été publié'
             );
         }
