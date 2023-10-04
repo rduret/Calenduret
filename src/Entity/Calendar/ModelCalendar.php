@@ -32,7 +32,7 @@ class ModelCalendar
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'modelCalendar', targetEntity: ModelBox::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'modelCalendar', targetEntity: ModelBox::class,cascade: ["persist"], orphanRemoval: true)]
     private Collection $modelBoxes;
 
     #[ORM\OneToMany(mappedBy: 'modelCalendar', targetEntity: Calendar::class, orphanRemoval: true)]

@@ -6,15 +6,16 @@ use Symfony\Component\Uid\Uuid;
 use App\Service\Utils\UploadHandler;
 use App\Entity\Calendar\ModelCalendar;
 use App\Form\Calendar\ModelCalendarType;
+use function PHPUnit\Framework\fileExists;
+use App\Form\Calendar\ModelCalendarBoxesType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Calendar\ModelCalendarRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-use function PHPUnit\Framework\fileExists;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class ModelCalendarController extends AbstractController
 {
@@ -124,6 +125,31 @@ class ModelCalendarController extends AbstractController
         return $this->render('calendar/model_calendar/edit.html.twig', [
             'model' => $modelCalendar,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/admin/calendriers/{id}/cases', name: 'model_calendar_edit_boxes', methods: ['GET', 'POST'])]
+    public function editBoxes(Request $request, ModelCalendar $modelCalendar, ModelCalendarRepository $modelCalendarRepository): Response
+    {
+
+        $form = $this->createForm(ModelCalendarBoxesType::class, $modelCalendar);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $modelCalendarRepository->save($modelCalendar, true);
+
+            $this->addFlash(
+                'success',
+                'Les case ont bien été éditées'
+            );
+
+            return $this->redirectToRoute('model_calendar_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('calendar/model_calendar/edit_boxes.html.twig', [
+            'model' => $modelCalendar,
+            'form' => $form
         ]);
     }
 

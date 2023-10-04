@@ -1,0 +1,61 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Calendrier {{ model.title }} - Gestion des cases{% endblock %}
+
+{% block body %}
+    <div class="container-fluid p-0">
+        <h1 class="h3 mb-3">{% trans %}Gestion des cases{% endtrans %} - {{ model.title }}</h1>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="boxes">
+                            {% form_theme form.modelBoxes
+                                'calendar/model_calendar/modelBox-theme.html.twig'
+                                'utils/jquery.collection.html.twig'
+                            %}
+                            {{ form_widget(form.modelBoxes) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function () {
+        $(".my-selector").collection({
+                allow_add: true,
+                allow_remove: true,
+                init_with_n_elements: 1,
+                min: 0,
+                allow_up: false,
+                allow_down: false,
+                drag_drop: false,
+                add_at_the_end: true,
+                preserve_names: true,
+                fade_in: true,
+                fade_out: true,
+                prototype_name: "{{ form.modelBoxes.vars.prototype.vars.name }}",
+                name_prefix:  "{{ form.modelBoxes.vars.prototype.vars.full_name }}",
+                add: "<a href='#' class='btn btn-warning action-button'>Ajouter une case</a>",
+                remove: "<a href='#' class='btn btn-danger action-button'>Supprimer la case</a>",
+                after_add: function() {
+
+                },
+                after_remove: function () {
+
+                }
+            });    
+        });
+    
+    </script>
+
+{% endblock %}
