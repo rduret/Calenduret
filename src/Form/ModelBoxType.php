@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class ModelBoxType extends AbstractType
 {
@@ -28,6 +30,11 @@ class ModelBoxType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Fichier non valide (vérifiez l\'extension)',
                     ])
+                ],
+            ])
+            ->add('position', HiddenType::class, [
+                'attr' => [
+                    'class' => 'position',
                 ],
             ])
             ->add('path')

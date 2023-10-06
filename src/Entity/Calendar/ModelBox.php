@@ -35,6 +35,9 @@ class ModelBox
     #[ORM\OneToMany(mappedBy: 'modelBox', targetEntity: Box::class)]
     private Collection $boxes;
 
+    #[ORM\Column]
+    private ?int $position = null;
+
     #[ORM\PreRemove]
     public function removeFile(): void
     {
@@ -142,6 +145,18 @@ class ModelBox
                 $box->setModelBox(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }

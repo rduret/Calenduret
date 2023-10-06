@@ -22,39 +22,60 @@
             </div>
         </div>
 
-        <div>
-            {{ form_widget(form) }}
-            {{ form_end(form) }}
-        </div>
+        <button class="btn btn-primary">Valider</button>
+        
+        {{ form_end(form) }}
+
     </div>
 
     <script type="text/javascript">
 
     document.addEventListener("DOMContentLoaded", function () {
-        $(".my-selector").collection({
+        $(".collection-boxes").collection({
                 allow_add: true,
                 allow_remove: true,
                 init_with_n_elements: 1,
-                min: 0,
-                allow_up: false,
-                allow_down: false,
-                drag_drop: false,
+                max: 25,
+                allow_up: true,
+                allow_down: true,
+                drag_drop: true,
                 add_at_the_end: true,
-                preserve_names: true,
+                position_field_selector: '.position',
                 fade_in: true,
                 fade_out: true,
                 prototype_name: "{{ form.modelBoxes.vars.prototype.vars.name }}",
                 name_prefix:  "{{ form.modelBoxes.vars.prototype.vars.full_name }}",
                 add: "<a href='#' class='btn btn-warning action-button'>Ajouter une case</a>",
                 remove: "<a href='#' class='btn btn-danger action-button'>Supprimer la case</a>",
+                up: '<a href="#" class="btn btn-primary"><span class="fa fa-arrow-alt-circle-up"></span> Monter la case</a>',
+                down: '<a href="#" class="btn btn-primary"><span class="fa fa-arrow-alt-circle-down"></span> Descendre la case</a>',
+                after_init: function () {
+                    displayIndex();
+                },
                 after_add: function() {
-
+                    displayIndex();
                 },
                 after_remove: function () {
-
-                }
-            });    
+                    displayIndex();
+                },
+                after_up: function () {
+                    displayIndex();
+                },
+                after_down: function () {
+                    displayIndex();
+                },
+            });
         });
+
+        const displayIndex = function () {
+            let index = 1;
+            let boxForms = document.querySelectorAll('.box-form-container');
+            
+            boxForms.forEach(boxForm => {
+                boxForm.querySelector('.index').innerHTML = index;
+                index++;
+            });
+        }
     
     </script>
 

@@ -1,5 +1,8 @@
 {% block modelBoxType_row %}
-    <div class="remi box-form-container">
+    <div class="box-form-container">
+        <div class="row">
+            <div>Case n° <span class="index"></span></div>
+        </div>
         <div class="row">
             {{ form_label(form.path) }}
             {{ form_widget(form.path, { 'attr': {'class': 'form-control', 'readonly': true} }) }}
@@ -10,6 +13,9 @@
             <div class="form-error">
                 {{ form_errors(form.file) }}
             </div>
+        </div>
+        <div>
+            {{ form_widget(form.position) }}
         </div>
         <div>
             {{ form_widget(form) }}

@@ -23,10 +23,9 @@ class ModelCalendarBoxesType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
                 'attr' => array(
-                    'class' => 'my-selector',
+                    'class' => 'collection-boxes',
                 ),
             ])
-            ->add('submit', SubmitType::class)
         ;
     }
 
