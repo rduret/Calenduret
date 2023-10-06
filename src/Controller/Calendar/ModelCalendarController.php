@@ -129,19 +129,45 @@ class ModelCalendarController extends AbstractController
     }
 
     #[Route('/admin/calendriers/{id}/cases', name: 'model_calendar_edit_boxes', methods: ['GET', 'POST'])]
-    public function editBoxes(Request $request, ModelCalendar $modelCalendar, ModelCalendarRepository $modelCalendarRepository): Response
+    public function editBoxes(Request $request, ModelCalendar $modelCalendar, ModelCalendarRepository $modelCalendarRepository, UploadHandler $uploadHandler): Response
     {
 
         $form = $this->createForm(ModelCalendarBoxesType::class, $modelCalendar);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $formsModelBoxes = $form->get('modelBoxes');
+
+            foreach ($formsModelBoxes as $formModelBoxes) {
+                $file = $formModelBoxes->get('file')->getData();
+                $modelBox = $formModelBoxes->getData();
+
+                if ($file !== null) {
+                    try {
+                        $newFilename = $uploadHandler->uploadFile($file);
+    
+                        if(file_exists($modelBox->getPath())){
+                            unlink($modelBox->getPath());
+                        }
+    
+                        $modelBox->setPath($newFilename);
+                    } catch (FileException $e) {
+                        $this->addFlash(
+                            'error',
+                            'Une erreur s\'est produite lors de l\'upload'
+                        );
+    
+                        return $this->redirectToRoute('model_calendar_index', [], Response::HTTP_SEE_OTHER);
+
+                    }
+                }
+            }
 
             $modelCalendarRepository->save($modelCalendar, true);
 
             $this->addFlash(
                 'success',
-                'Les case ont bien été éditées'
+                'Les cases ont bien été éditées'
             );
 
             return $this->redirectToRoute('model_calendar_index', [], Response::HTTP_SEE_OTHER);

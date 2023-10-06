@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ModelBoxRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class ModelBox
 {
     #[ORM\Id]
@@ -33,6 +34,17 @@ class ModelBox
 
     #[ORM\OneToMany(mappedBy: 'modelBox', targetEntity: Box::class)]
     private Collection $boxes;
+
+    #[ORM\PreRemove]
+    public function removeFile(): void
+    {
+        $filePath = $this->getPath();
+
+        if (file_exists($filePath)) {
+            // Supprimez le fichier
+            unlink($filePath);
+        }
+    }
 
     public function __construct()
     {

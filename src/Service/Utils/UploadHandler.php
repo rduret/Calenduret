@@ -40,9 +40,9 @@ class UploadHandler
      */
     private function moveFile(UploadedFile $uploadedFile, string $path, ?string $croppedFile): string
     {
-        if (!in_array($uploadedFile->getMimeType(), $this->allowedMimeTypes)) {
-            throw new \Exception('Type de fichier non autorisé.', 415);
-        }
+        // if (!in_array($uploadedFile->getMimeType(), $this->allowedMimeTypes)) {
+        //     throw new \Exception('Type de fichier non autorisé.', 415);
+        // }
         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
 
         $safeFilename = $this->slugger->slug($originalFilename);

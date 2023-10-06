@@ -1,6 +1,18 @@
 {% block modelBoxType_row %}
     <div class="remi box-form-container">
-        {{ form_label(form.path) }}
-        {{ form_widget(form.path, { 'attr': {'class': 'form-control'} }) }}
+        <div class="row">
+            {{ form_label(form.path) }}
+            {{ form_widget(form.path, { 'attr': {'class': 'form-control', 'readonly': true} }) }}
+        </div>
+        <div class="row">
+            {{ form_label(form.file) }}
+            {{ form_widget(form.file, { 'attr': {'class': 'form-control', 'accept': 'video/*, audio/*, image/*'} }) }}
+            <div class="form-error">
+                {{ form_errors(form.file) }}
+            </div>
+        </div>
+        <div>
+            {{ form_widget(form) }}
+        </div>
     </div>
 {% endblock %}
