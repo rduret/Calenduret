@@ -17,7 +17,7 @@ class ModelBoxType extends AbstractType
     {
         $builder
             ->add('file', FileType::class, [
-                'label' => 'Fichier (20Mo max)',
+                'label' => 'Nouveau fichier (20Mo max)',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -37,7 +37,6 @@ class ModelBoxType extends AbstractType
                     'class' => 'position',
                 ],
             ])
-            ->add('path')
             ->add('type')
             ->add('coordX')
             ->add('coordY')

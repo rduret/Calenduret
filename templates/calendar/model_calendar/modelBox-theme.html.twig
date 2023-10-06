@@ -3,10 +3,12 @@
         <div class="row">
             <div>Case n° <span class="index"></span></div>
         </div>
-        <div class="row">
-            {{ form_label(form.path) }}
-            {{ form_widget(form.path, { 'attr': {'class': 'form-control', 'readonly': true} }) }}
-        </div>
+        
+        {% if form.vars.value %}
+            <div class="row">
+                {{ form.vars.value.name }}
+            </div>
+        {% endif %}
         <div class="row">
             {{ form_label(form.file) }}
             {{ form_widget(form.file, { 'attr': {'class': 'form-control', 'accept': 'video/*, audio/*, image/*'} }) }}

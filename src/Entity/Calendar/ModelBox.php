@@ -16,6 +16,9 @@ class ModelBox
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $name = null;
+
     #[ORM\Column(length: 255)]
     private ?string $path = null;
 
@@ -157,6 +160,18 @@ class ModelBox
     public function setPosition(int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

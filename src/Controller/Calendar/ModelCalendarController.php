@@ -2,6 +2,7 @@
 
 namespace App\Controller\Calendar;
 
+use App\Entity\Calendar\ModelBox;
 use Symfony\Component\Uid\Uuid;
 use App\Service\Utils\UploadHandler;
 use App\Entity\Calendar\ModelCalendar;
@@ -145,12 +146,18 @@ class ModelCalendarController extends AbstractController
                 if ($file !== null) {
                     try {
                         $newFilename = $uploadHandler->uploadFile($file);
-    
+
+                        //Si un fichier était relié à la case, on le supprime
                         if(file_exists($modelBox->getPath())){
                             unlink($modelBox->getPath());
                         }
-    
+
+                        $mimeType = $file->getClientMimeType();
+
+                        $modelBox->setName($file->getClientOriginalName());
+                        $modelBox->setType(explode('/', $mimeType)[0]);
                         $modelBox->setPath($newFilename);
+
                     } catch (FileException $e) {
                         $this->addFlash(
                             'error',
@@ -158,10 +165,10 @@ class ModelCalendarController extends AbstractController
                         );
     
                         return $this->redirectToRoute('model_calendar_index', [], Response::HTTP_SEE_OTHER);
-
                     }
                 }
             }
+
 
             $modelCalendarRepository->save($modelCalendar, true);
 
