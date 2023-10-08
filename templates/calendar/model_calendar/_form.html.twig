@@ -18,7 +18,7 @@
                     {% endif %}
 
                     {{ form_label(form.file, null, { 'label_attr': {'class': 'form-label'} }) }}
-                    {{ form_widget(form.file, { 'attr': {'class': 'form-control upload-img', 'data-preview-target': '#preview', 'data-cropped-target': '#cropped-file', 'data-cropper-width': '130', 'data-cropper-height': '200'}, required: isRequiredFile }) }}
+                    {{ form_widget(form.file, { 'attr': {'class': 'form-control upload-img', 'data-preview-target': '#preview', 'data-cropped-target': '#cropped-file', 'data-cropper-width': '130', 'data-cropper-height': '175'}, required: isRequiredFile }) }}
                     <div class="text-danger">
                         {{ form_errors(form.file) }}
                     </div>
@@ -26,9 +26,9 @@
                 <input id="cropped-file" name="cropped-file" type="hidden">
                 <div class="mb-3 col-md-12 d-flex flex-column">
                     {% if null == model.path %}
-                        <img id="preview" alt="{{ model.title }}" src="https://via.placeholder.com/130x200" class="thumbnail img-responsive mt-2" width="130" height="200">
+                        <img id="preview" alt="{{ model.title }}" src="https://via.placeholder.com/130x175" class="thumbnail img-responsive mt-2" width="130" height="175">
                     {% else %}
-                        <img id="preview" alt="{{ model.title }}" src="{{ asset(model.path) }}" class="thumbnail img-responsive mt-2" width="130" height="200">
+                        <img id="preview" alt="{{ model.title }}" src="{{ asset(model.path) }}" class="thumbnail img-responsive mt-2" width="130" height="175">
                     {% endif %}
                 </div>
             </div>

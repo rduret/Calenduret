@@ -1,5 +1,7 @@
 import './styles/app_admin.scss';
+import './styles/calendar.scss';
 import './js/common/jquery.collection';
+import './js/common/calendar.js';
 
 const dataTableFr = require('./js/datatable-fr.json');
 const Swal = require("sweetalert2");

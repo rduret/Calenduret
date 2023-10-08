@@ -7,17 +7,28 @@
         <h1 class="h3 mb-3">{% trans %}Gestion des cases{% endtrans %} - {{ model.title }}</h1>
         {{ form_start(form) }}
         <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="boxes">
-                            {% form_theme form.modelBoxes
-                                'calendar/model_calendar/modelBox-theme.html.twig'
-                                'utils/jquery.collection.html.twig'
-                            %}
-                            {{ form_widget(form.modelBoxes) }}
+            <div class="col-md-6">
+                <div class="calendar-view mx-auto">
+                    <div class="calendar-container">
+                        <div class="calendar" style="background-image: url('{{ asset(model.path) }}')">
+                            {% for modelBox in model.modelBoxes %}
+                                <div class="model-box" data-id="{{ modelBox.id }}" style="left: {{ modelBox.coordX }}%; top: {{ modelBox.coordY }}%;">
+                                    <div class="model-box-numero">
+                                        {{ modelBox.position }}
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-6 px-5">
+                <div id="boxes">
+                    {% form_theme form.modelBoxes
+                        'calendar/model_calendar/modelBox-theme.html.twig'
+                        'utils/jquery.collection.html.twig'
+                    %}
+                    {{ form_widget(form.modelBoxes) }}
                 </div>
             </div>
         </div>
@@ -30,51 +41,7 @@
 
     <script type="text/javascript">
 
-    document.addEventListener("DOMContentLoaded", function () {
-        $(".collection-boxes").collection({
-                allow_add: true,
-                allow_remove: true,
-                init_with_n_elements: 1,
-                max: 25,
-                allow_up: true,
-                allow_down: true,
-                add_at_the_end: true,
-                position_field_selector: '.position',
-                fade_in: true,
-                fade_out: true,
-                prototype_name: "{{ form.modelBoxes.vars.prototype.vars.name }}",
-                name_prefix:  "{{ form.modelBoxes.vars.prototype.vars.full_name }}",
-                add: "<a href='#' class='btn btn-warning action-button'>Ajouter une case</a>",
-                remove: "<a href='#' class='btn btn-danger action-button'>Supprimer la case</a>",
-                up: '<a href="#" class="btn btn-primary"><span class="fa fa-arrow-alt-circle-up"></span> Monter la case</a>',
-                down: '<a href="#" class="btn btn-primary"><span class="fa fa-arrow-alt-circle-down"></span> Descendre la case</a>',
-                after_init: function () {
-                    displayIndex();
-                },
-                after_add: function() {
-                    displayIndex();
-                },
-                after_remove: function () {
-                    displayIndex();
-                },
-                after_up: function () {
-                    displayIndex();
-                },
-                after_down: function () {
-                    displayIndex();
-                },
-            });
-        });
-
-        const displayIndex = function () {
-            let index = 1;
-            let boxForms = document.querySelectorAll('.box-form-container');
-            
-            boxForms.forEach(boxForm => {
-                boxForm.querySelector('.index').innerHTML = index;
-                index++;
-            });
-        }
+    
     
     </script>
 

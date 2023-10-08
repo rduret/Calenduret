@@ -1,5 +1,5 @@
 {% block modelBoxType_row %}
-    <div class="box-form-container">
+    <div class="box-form-container"  {% if form.vars.value %}data-id="{{ form.vars.value.id }}"{% endif %}>
         <div class="row">
             <div>Case n° <span class="index"></span></div>
         </div>
