@@ -4,11 +4,14 @@
             <div>Case n° <span class="index"></span></div>
         </div>
         
-        {% if form.vars.value %}
-            <div class="row">
-                {{ form.vars.value.name }}
-            </div>
-        {% endif %}
+        <div class="row">
+            {% if form.vars.value %}
+                Case {{ form.vars.value.name }}
+            {% else %}
+                Nouvelle case
+            {% endif %}
+        </div>
+        
         <div class="row">
             {{ form_label(form.file) }}
             {{ form_widget(form.file, { 'attr': {'class': 'form-control', 'accept': 'video/*, audio/*, image/*'} }) }}

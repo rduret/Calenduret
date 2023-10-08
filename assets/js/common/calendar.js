@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
         allow_remove: true,
         init_with_n_elements: 1,
         max: 25,
-        allow_up: true,
-        allow_down: true,
+        allow_up: false,
+        allow_down: false,
         add_at_the_end: true,
         position_field_selector: '.position',
         fade_in: true,
@@ -22,15 +22,17 @@ document.addEventListener("DOMContentLoaded", function () {
         after_add: function () {
             updateIndexes();
         },
-        after_remove: function () {
+        after_remove: function (collection, element) {
             updateIndexes();
+            let modelBox = document.querySelector(`.model-box[data-id="${element[0].dataset.id}"]`);
+            modelBox.remove();
         },
-        after_up: function () {
-            updateIndexes();
-        },
-        after_down: function () {
-            updateIndexes();
-        },
+        // after_up: function () {
+        //     updateIndexes();
+        // },
+        // after_down: function () {
+        //     updateIndexes();
+        // },
     });
 });
 
@@ -40,7 +42,10 @@ const updateIndexes = function () {
 
     boxForms.forEach(boxForm => {
         boxForm.querySelector('.index').innerHTML = index;
-        //Si boxForm possède un data-id, mettre à jour son équivalent sur le calendrier
+        if (boxForm.dataset.id !== undefined) {
+            let modelBox = document.querySelector(`.model-box[data-id="${boxForm.dataset.id}"]`);
+            modelBox.firstElementChild.innerHTML = index;
+        }
 
         index++;
     });

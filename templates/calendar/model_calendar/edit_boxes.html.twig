@@ -11,10 +11,10 @@
                 <div class="calendar-view mx-auto">
                     <div class="calendar-container">
                         <div class="calendar" style="background-image: url('{{ asset(model.path) }}')">
-                            {% for modelBox in model.modelBoxes %}
+                            {% for modelBox in model.modelBoxes|sort((a, b) => a.position <=> b.position) %}
                                 <div class="model-box" data-id="{{ modelBox.id }}" style="left: {{ modelBox.coordX }}%; top: {{ modelBox.coordY }}%;">
                                     <div class="model-box-numero">
-                                        {{ modelBox.position }}
+                                        {{ modelBox.position + 1 }}
                                     </div>
                                 </div>
                             {% endfor %}
@@ -38,11 +38,5 @@
         {{ form_end(form) }}
 
     </div>
-
-    <script type="text/javascript">
-
-    
-    
-    </script>
 
 {% endblock %}
