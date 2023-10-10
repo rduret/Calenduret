@@ -45,9 +45,35 @@ document.addEventListener("DOMContentLoaded", function () {
     interact('.model-box').draggable({
         listeners: {
             move(event) {
-                console.log(event.pageX, event.pageY)
+                const modelBox = event.target;
+                const x = (parseFloat(modelBox.getAttribute('data-x')) || 0) + event.dx;
+                const y = (parseFloat(modelBox.getAttribute('data-y')) || 0) + event.dy;
+
+                modelBox.style.transform = `translate(${x}px, ${y}px)`;
+
+                modelBox.setAttribute('data-x', x);
+                modelBox.setAttribute('data-y', y);
+
+                //Récupération des valeurs en pourcentage 
+                const containerRect = modelBox.parentElement.getBoundingClientRect();
+                let top = parseFloat(modelBox.style.top);
+                let left = parseFloat(modelBox.style.left);
+
+                const xPercentage = Math.round(((x) / containerRect.width) * 100 + left);
+                const yPercentage = Math.round(((y) / containerRect.height) * 100 + top);
+
+
+                let modelBoxForm = document.querySelector(`.box-form-container[data-id="${modelBox.dataset.id}"]`);
+                modelBoxForm.querySelector('.coordX').value = xPercentage;
+                modelBoxForm.querySelector('.coordY').value = yPercentage;
             },
         },
+        modifiers: [
+            interact.modifiers.restrictRect({
+                restriction: 'parent',
+                endOnly: false,
+            }),
+        ],
     })
 });
 
@@ -143,3 +169,4 @@ function generateRandomId(length) {
     }
     return randomId;
 }
+
