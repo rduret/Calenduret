@@ -41,6 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
         //     updateIndexes();
         // },
     });
+
+    interact('.model-box').draggable({
+        listeners: {
+            move(event) {
+                console.log(event.pageX, event.pageY)
+            },
+        },
+    })
 });
 
 //Met à jour les numéros des cases
@@ -89,7 +97,6 @@ function drawBox(boxForm) {
     }
 
     //Ajout de la case
-
     let newModelBox = document.createElement("div");
     let modelBoxNumber = document.createElement("div");
 

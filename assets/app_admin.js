@@ -3,6 +3,11 @@ import './styles/calendar.scss';
 import './js/common/jquery.collection';
 import './js/common/calendar.js';
 
+//InteractJS
+import interact from 'interactjs';
+window.interact = interact;
+
+
 const dataTableFr = require('./js/datatable-fr.json');
 const Swal = require("sweetalert2");
 
