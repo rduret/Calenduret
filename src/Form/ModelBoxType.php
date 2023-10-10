@@ -38,8 +38,16 @@ class ModelBoxType extends AbstractType
                 ],
             ])
             ->add('type')
-            ->add('coordX')
-            ->add('coordY')
+            ->add('coordX', TextType::class, [
+                'attr' => [
+                    'class' => 'coordX',
+                ]
+            ])
+            ->add('coordY', TextType::class, [
+                'attr' => [
+                    'class' => 'coordY',
+                ]
+            ])
         ;
     }
 

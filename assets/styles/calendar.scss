@@ -31,13 +31,13 @@
 .model-box{
     position: absolute;
     border: rgb(0, 0, 0, 0.5) solid 2px;
-    height: 9%;
-    width: 9%;
+    height: 12%;
+    width: 12%;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
     cursor: pointer;
 }
 
-.model-box-numero{
+.model-box-number{
     position: absolute;
     left: 15%;
     font-size: 1.2em;
