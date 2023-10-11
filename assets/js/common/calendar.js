@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
         prototype_name: "{{ form.modelBoxes.vars.prototype.vars.name }}",
         name_prefix: "{{ form.modelBoxes.vars.prototype.vars.full_name }}",
         add: "<a href='#' class='btn btn-warning action-button'>Ajouter une case</a>",
-        remove: "<a href='#' class='btn btn-danger action-button'>Supprimer la case</a>",
         up: '<a href="#" class="btn btn-primary"><span class="fa fa-arrow-alt-circle-up"></span> Monter la case</a>',
         down: '<a href="#" class="btn btn-primary"><span class="fa fa-arrow-alt-circle-down"></span> Descendre la case</a>',
         after_init: function () {
@@ -25,6 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
             //Ajout d'un id temporaire
             const idTemp = generateRandomId(5);
             element[0].dataset.id = idTemp;
+
+            //Required sur l'input du fichier en cas de nouvelle case
+            element[0].querySelector('input[type=file]').required = true;
 
             drawBox(element[0]);
             updateIndexes();

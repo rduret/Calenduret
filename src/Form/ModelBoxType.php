@@ -15,6 +15,7 @@ class ModelBoxType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
             ->add('file', FileType::class, [
                 'label' => 'Nouveau fichier (20Mo max)',
@@ -37,13 +38,12 @@ class ModelBoxType extends AbstractType
                     'class' => 'position',
                 ],
             ])
-            ->add('type')
-            ->add('coordX', TextType::class, [
+            ->add('coordX', HiddenType::class, [
                 'attr' => [
                     'class' => 'coordX',
                 ]
             ])
-            ->add('coordY', TextType::class, [
+            ->add('coordY', HiddenType::class, [
                 'attr' => [
                     'class' => 'coordY',
                 ]

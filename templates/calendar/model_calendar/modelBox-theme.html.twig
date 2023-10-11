@@ -1,20 +1,23 @@
 {% block modelBoxType_row %}
+    {% if form.vars.value %}
+        {% set boxName = form.vars.value.name %}
+        {% set path = form.vars.value.path %}
+    {% else %}
+        {% set boxName = 'Nouvelle case' %}
+    {% endif %}
     <div class="box-form-container"  {% if form.vars.value %}data-id="{{ form.vars.value.id }}"{% endif %}>
         <div class="row">
-            <div>Case n° <span class="index"></span></div>
+            <div>Case n° <span class="index"></span> - {{ boxName|u.truncate(20, '...') }}</div>
         </div>
         
-        <div class="row">
-            {% if form.vars.value %}
-                Case {{ form.vars.value.name }}
-            {% else %}
-                Nouvelle case
-            {% endif %}
-        </div>
-        
-        <div class="row">
+        <div class="row mt-2">
             {{ form_label(form.file) }}
-            {{ form_widget(form.file, { 'attr': {'class': 'form-control', 'accept': 'video/*, audio/*, image/*'} }) }}
+            <div class="my-2 d-flex">
+                {{ form_widget(form.file, {'attr': {'class': 'form-control', 'accept': 'video/*, audio/*, image/*'} }) }}
+                <a href="#" class="btn btn-danger ms-1 action-button model_calendar_boxes_modelBoxes-collection-remove model_calendar_boxes_modelBoxes-collection-action">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </div>
             <div class="form-error">
                 {{ form_errors(form.file) }}
             </div>
@@ -25,5 +28,7 @@
         <div>
             {{ form_widget(form) }}
         </div>
+        <hr/>
     </div>
+
 {% endblock %}

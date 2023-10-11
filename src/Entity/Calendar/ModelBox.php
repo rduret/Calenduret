@@ -17,7 +17,7 @@ class ModelBox
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $name = null;
+    private ?string $name = 'Pas de fichier';
 
     #[ORM\Column(length: 255)]
     private ?string $path = null;

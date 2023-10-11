@@ -28,13 +28,22 @@
     clip-path: polygon(0px 0px, 100% 6px, 100% 99%, 0px 100%);
 }
 
+.collection-boxes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.box-form-container{
+    width: 30%;
+}
+
 .model-box{
     position: absolute;
     border: rgb(0, 0, 0, 0.5) solid 2px;
     height: 12%;
     width: 12%;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
-    cursor: pointer;
 }
 
 .model-box-number{

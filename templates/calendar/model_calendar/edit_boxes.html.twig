@@ -4,11 +4,13 @@
 
 {% block body %}
     <div class="container-fluid p-0">
-        <h1 class="h3 mb-3">{% trans %}Gestion des cases{% endtrans %} - {{ model.title }}</h1>
+        <h1 class="mb-4">{% trans %}Gestion des cases{% endtrans %}</h1>
+        <hr>
         {{ form_start(form) }}
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="calendar-view mx-auto">
+                    <h2 class="mb-3 text-center">{% trans %}Calendrier{% endtrans %} {{ model.title }}</h2>
                     <div class="calendar-container">
                         <div id="calendar" class="calendar" style="background-image: url('{{ asset(model.path) }}')">
                             {% for modelBox in model.modelBoxes|sort((a, b) => a.position <=> b.position) %}
@@ -33,7 +35,7 @@
             </div>
         </div>
 
-        <button class="btn btn-primary">Valider</button>
+        <button class="btn btn-primary w-100 mt-4">Valider</button>
         
         {{ form_end(form) }}
 

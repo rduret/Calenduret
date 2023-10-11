@@ -154,7 +154,7 @@ class ModelCalendarController extends AbstractController
 
                         $mimeType = $file->getClientMimeType();
 
-                        $modelBox->setName($file->getClientOriginalName());
+                        $modelBox->setName(substr($file->getClientOriginalName(), 0, 50));
                         $modelBox->setType(explode('/', $mimeType)[0]);
                         $modelBox->setPath($newFilename);
 
