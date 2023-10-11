@@ -8,6 +8,18 @@
     position: relative;
 }
 
+.calendar-title{
+    &:after{
+        display: block;
+        content: '';
+        height: 2px;
+        width: 30px;
+        margin: auto;
+        margin-top: 10px;
+        background: #fff;
+    }
+}
+
 .calendar{
     position: absolute;
     background-size: cover;
@@ -31,11 +43,13 @@
 .collection-boxes{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: stretch;
+    align-items: center;
 }
 
 .box-form-container{
     width: 30%;
+    margin-right: 3%;
 }
 
 .model-box{
@@ -44,6 +58,11 @@
     height: 12%;
     width: 12%;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.model-box-title{
+    font-weight: bold;
+    font-size: 15px;
 }
 
 .model-box-number{

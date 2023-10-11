@@ -10,7 +10,7 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="calendar-view mx-auto">
-                    <h2 class="mb-3 text-center">{% trans %}Calendrier{% endtrans %} {{ model.title }}</h2>
+                    <h2 class="mb-3 text-center calendar-title">{% trans %}Calendrier{% endtrans %} {{ model.title }}</h2>
                     <div class="calendar-container">
                         <div id="calendar" class="calendar" style="background-image: url('{{ asset(model.path) }}')">
                             {% for modelBox in model.modelBoxes|sort((a, b) => a.position <=> b.position) %}

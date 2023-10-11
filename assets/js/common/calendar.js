@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fade_out: true,
         prototype_name: "{{ form.modelBoxes.vars.prototype.vars.name }}",
         name_prefix: "{{ form.modelBoxes.vars.prototype.vars.full_name }}",
-        add: "<a href='#' class='btn btn-warning action-button'>Ajouter une case</a>",
+        add: "<a href='#' class='w-100 btn btn-warning action-button'>Ajouter une case</a>",
         up: '<a href="#" class="btn btn-primary"><span class="fa fa-arrow-alt-circle-up"></span> Monter la case</a>',
         down: '<a href="#" class="btn btn-primary"><span class="fa fa-arrow-alt-circle-down"></span> Descendre la case</a>',
         after_init: function () {
