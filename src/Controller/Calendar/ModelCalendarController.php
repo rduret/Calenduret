@@ -2,8 +2,8 @@
 
 namespace App\Controller\Calendar;
 
-use App\Entity\Calendar\ModelBox;
 use Symfony\Component\Uid\Uuid;
+use App\Entity\Calendar\ModelBox;
 use App\Service\Utils\UploadHandler;
 use App\Entity\Calendar\ModelCalendar;
 use App\Form\Calendar\ModelCalendarType;
@@ -11,10 +11,12 @@ use function PHPUnit\Framework\fileExists;
 use App\Form\Calendar\ModelCalendarBoxesType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\Calendar\ModelBoxRepository;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\Calendar\ModelCalendarRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -225,5 +227,18 @@ class ModelCalendarController extends AbstractController
         $modelCalendarRepository->save($modelCalendar, true);
 
         return $this->redirectToRoute('model_calendar_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/calendriers/previewBox', name: 'model_calendar_preview', methods: ['GET'])]
+    public function previewModelBoxModal(Request $request, ModelBoxRepository $modelBoxRepository): JsonResponse
+    {
+        $id = $request->get('id');
+        $modelBox = $modelBoxRepository->find($id);
+
+        $htmlContent = $this->renderView('calendar/model_calendar/preview/previewModal.html.twig', [
+            'modelBox' => $modelBox,
+        ]);
+
+        return new JsonResponse($htmlContent);
     }
 }

@@ -1,5 +1,9 @@
+//Style
 import './styles/app_admin.scss';
 import './styles/calendar.scss';
+
+
+//Js
 import './js/common/jquery.collection';
 import './js/common/calendar.js';
 

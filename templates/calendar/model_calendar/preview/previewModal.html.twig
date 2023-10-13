@@ -1,0 +1,13 @@
+<div>
+    Modal case {{ modelBox.name }}
+    {{ modelBox.type }}
+    {% if modelBox.type == 'image' %}
+        include image
+    {% elseif modelBox.type == 'video' %}
+        include video
+    {% elseif modelBox.type == 'audio' %}
+        include audio
+    {% else %}
+        include téléchargement
+    {% endif %}
+</div>

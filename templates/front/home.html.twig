@@ -10,7 +10,7 @@
 
 <div class="example-wrapper">
     <h1>Bienvenue sur le projet utilisateurs ✅</h1>
-    
+
     {% if is_granted('ROLE_USER') %}
         User
         <a href=" {{ path('app_logout') }} ">Se déconnecter</a>

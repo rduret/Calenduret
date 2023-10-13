@@ -6,8 +6,17 @@
         {% set boxName = 'Nouvelle case' %}
     {% endif %}
     <div class="box-form-container"  {% if form.vars.value %}data-id="{{ form.vars.value.id }}"{% endif %}>
-        <div class="row">
-            <div class="model-box-title">Case n°<span class="index"></span> - {{ boxName|u.truncate(20, '...') }}</div>
+        <div class="row align-items-baseline">
+            <div class="col-10">
+                <div class="model-box-title">Case n°<span class="index"></span> - {{ boxName|u.truncate(20, '...') }}</div>
+            </div>
+            {% if form.vars.value %}
+                <div class="col-2">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#previewModal" data-bs-id="{{ form.vars.value.id }}">
+                        <i class="far fa-eye fa-lg" style="color: #ffffff;"></i>  
+                    </a>
+                </div>
+            {% endif %}
         </div>
         
         <div class="row mt-2">
