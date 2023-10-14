@@ -28,6 +28,8 @@ class ModelBoxType extends AbstractType
                             'image/*',
                             'video/*',
                             'audio/*',
+                            'application/pdf',
+                            'application/x-pdf',
                         ],
                         'mimeTypesMessage' => 'Fichier non valide (vérifiez l\'extension)',
                     ])
