@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
 class ModelCalendarType extends AbstractType
 {
@@ -18,7 +19,11 @@ class ModelCalendarType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre *',
                 'required' => true
-            ])            
+            ])
+            ->add('color', ColorType::class, [
+                'label' => 'Couleur * (bordure et interieur)',
+                'required' => true,
+            ])     
             ->add('file', FileType::class, [
                 'label' => 'Image de fond * (jpg, jpeg, png)',
                 'label_attr' => ['class' => 'form-label'],
@@ -36,9 +41,6 @@ class ModelCalendarType extends AbstractType
                     ])
                 ],
             ])
-            //->add('state')
-            //->add('uuid')
-            //->add('user')
         ;
     }
 

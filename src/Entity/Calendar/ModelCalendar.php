@@ -41,6 +41,9 @@ class ModelCalendar
     #[ORM\Column]
     private ?bool $isPublished = true;
 
+    #[ORM\Column(length: 10)]
+    private ?string $color = null;
+
     public function __construct()
     {
         $this->modelBoxes = new ArrayCollection();
@@ -168,6 +171,18 @@ class ModelCalendar
     public function setIsPublished(bool $isPublished): self
     {
         $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

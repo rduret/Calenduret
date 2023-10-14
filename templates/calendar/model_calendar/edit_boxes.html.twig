@@ -56,4 +56,17 @@
         </div>
     </div>
 
+    <style>
+        .calendar::after{
+            position: absolute;
+            content: "";
+            left: 100%;
+            margin: auto;
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(to left, {{ model.color }}50, {{ model.color }});
+            clip-path: polygon(0px 0px, 100% 6px, 100% 99%, 0px 100%);
+        }
+    </style>
+
 {% endblock %}

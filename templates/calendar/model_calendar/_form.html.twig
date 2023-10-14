@@ -9,6 +9,14 @@
                         {{ form_errors(form.title) }}
                     </div>
                 </div>
+                <div class="mb-3 col-md-6">
+                    {{ form_label(form.color, null, { 'label_attr': {'class': 'form-label'} }) }}
+                    <br/>
+                    {{ form_widget(form.color, { 'attr': {'class': 'colorpicker'} }) }}
+                    <div class="text-danger">
+                        {{ form_errors(form.color) }}
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-12">
