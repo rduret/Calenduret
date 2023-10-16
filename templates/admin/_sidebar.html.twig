@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="{{ path('home_admin') }}">
+        <a class="sidebar-brand" href="{{ path('model_calendar_index') }}">
             <div class="align-middle me-3">Calendrier de l'avent</div>
         </a>
         <ul class="sidebar-nav">
@@ -21,12 +21,12 @@
                     </li>
                 </ul>
             </li> #}
-            <li class="sidebar-item {% if url('home_admin') == app.request.uri %} active {% endif %}">
+            {# <li class="sidebar-item {% if url('home_admin') == app.request.uri %} active {% endif %}">
                 <a class="sidebar-link" href="{{ path('home_admin') }}">
                     <i class="align-middle me-2 fas fa-fw fa-grip-horizontal"></i>
                     <span class="align-middle">Dashboard</span>
                 </a>
-            </li>
+            </li> #}
             <li class="sidebar-item {% if url('model_calendar_index') == app.request.uri %} active {% endif %}">
                 <a class="sidebar-link" href="{{ path('model_calendar_index') }}">
                     <i class="align-middle me-2 fas fa-fw fa-grip-horizontal"></i>

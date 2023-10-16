@@ -26,17 +26,29 @@
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0">
         {% if app.user %}
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <img alt="{{ app.user.firstname ~ " " ~ app.user.lastname }}" src="https://via.placeholder.com/40x40" class="avatar img-fluid rounded-circle me-1" width="20" height="20">
-                    <span class="text-dark">{{ app.user.firstname }}</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i>Mon profil</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
-                </ul>
-            </li>
+            {% if is_granted('ROLE_ADMIN') %}
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                      <span class="text-dark">{{ app.user.firstname }}</span>
+                  </a>
+                  <ul class="dropdown-menu">
+                      <a class="dropdown-item" href="{{ path('home_admin') }}">Administration</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                  </ul>
+              </li>
+            {% else %}
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                      <span class="text-dark">{{ app.user.firstname }}</span>
+                  </a>
+                  <ul class="dropdown-menu">
+                      <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i>Mon profil</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                  </ul>
+              </li>
+            {% endif %}
         {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>

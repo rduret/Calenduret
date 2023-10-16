@@ -12,11 +12,14 @@
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <img alt="{{ app.user.firstname ~ " " ~ app.user.lastname }}" src="https://via.placeholder.com/128x128" class="avatar img-fluid rounded-circle me-1" width="128" height="128">
                     <span class="text-dark">{{ app.user.firstname }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i>Mon profil</a>
+                    <form action="{{ path('user_edit') }}" method="post">
+                        <input type="hidden" name="edit_token" value="{{ csrf_token('edit_' ~ app.user.userIdentifier) }}">
+                        <input type="hidden" name="identifier" value="{{ app.user.userIdentifier }}">
+                        <button type="submit" class="dropdown-item">Mon profil</button>
+                    </form>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
                 </div>

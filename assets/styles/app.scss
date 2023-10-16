@@ -1,11 +1,38 @@
 @import "~bootstrap/scss/bootstrap";
 
-.custom-brand{
-    --bs-navbar-brand-hover-color: red;
+// Override bootstrap
+// .custom-brand{
+//     --bs-navbar-brand-hover-color: red;
+// }
+
+@font-face {
+    font-family: Montserrat;
+    src: url('fonts/Montserrat-VariableFont_wght.ttf');
 }
+
+@font-face {
+    font-family: OpenSans;
+    src: url('fonts/OpenSans-VariableFont_wdth.ttf');
+}
+
+@font-face {
+    font-family: DancingScript;
+    src: url('fonts/DancingScript-VariableFont_wght.ttf');
+}
+
+$red: #A52A2A;
+$green: #0a2621;
+$brown: #473535;
 
 body {
     background-color: lightgray;
 }
 
+p{
+    font-family: 'Montserrat';
+}
 
+//HEADER
+.dropdown-toggle::after {
+    vertical-align: 0.15em;
+}
