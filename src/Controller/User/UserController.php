@@ -25,7 +25,19 @@ class UserController extends AbstractController
     #[Route('/', name: 'home')]
     public function home(): Response
     {
-        return $this->render('front/home.html.twig');
+        $user = $this->getUser();
+        
+        if ($user !== null) {
+            if($this->isGranted('ROLE_ADMIN')){
+                return $this->redirectToRoute('home_admin');
+            } else {
+                return $this->redirectToRoute('home_user');
+            }
+        }
+
+        return $this->render('front/home.html.twig', [
+            'transparentNavbar' => true
+        ]);
     }
 
     #[Route('/dashboard', name: 'home_user')]
