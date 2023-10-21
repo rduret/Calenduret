@@ -1,18 +1,18 @@
 <header>
-	<nav class="navbar navbar-expand-lg {% if(transparentNavbar is defined and transparentNavbar == true) %} transparent {% endif %}">
+	<nav class="navbar navbar-expand-lg {% if(isHome is defined and isHome == true) %} transparent {% endif %}">
 		<div class="container-fluid mx-5">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse justify-content-between align-items-center" id="navbarSupportedContent">
-                <a class="navbar-brand custom-brand" href="{{ path('home') }}">Calendrier</a>
+                <a class="navbar-brand custom-brand logo" href="{{ path('home') }}">Calendrier</a>
 				
 				<ul class="navbar-nav mb-2 mb-lg-0">
 					{% if app.user %}
 						{% if is_granted('ROLE_ADMIN') %}
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-									<span class="text-dark">{{ app.user.firstname }}</span>
+									<span>{{ app.user.firstname }}</span>
 								</a>
 								<ul class="dropdown-menu">
 									<a class="dropdown-item" href="{{ path('home_admin') }}">Administration</a>
@@ -23,7 +23,7 @@
 						{% else %}
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-									<span class="text-dark">{{ app.user.firstname }}</span>
+									<span>{{ app.user.firstname }}</span>
 								</a>
 								<ul class="dropdown-menu">
 									<a class="dropdown-item" href="#">

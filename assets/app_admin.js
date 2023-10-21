@@ -6,6 +6,7 @@ import './styles/calendar.scss';
 //Js
 import './js/common/jquery.collection';
 import './js/common/calendar.js';
+import './js/common/common';
 
 //InteractJS
 import interact from 'interactjs';

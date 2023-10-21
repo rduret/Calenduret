@@ -80,27 +80,30 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     let previewModal = document.getElementById('previewModal');
-    previewModal.addEventListener('shown.bs.modal', function (event) {
-        let button = event.relatedTarget;
-        let modelBoxId = button.getAttribute('data-bs-id');
+    if (previewModal != null) {
+        previewModal.addEventListener('shown.bs.modal', function (event) {
+            let button = event.relatedTarget;
+            let modelBoxId = button.getAttribute('data-bs-id');
 
-        let params = new URLSearchParams();
-        params.append('id', modelBoxId);
+            let params = new URLSearchParams();
+            params.append('id', modelBoxId);
 
-        fetch(`${previewUrl}?${params.toString()}`)
+            fetch(`${previewUrl}?${params.toString()}`)
             .then(response => response.ok ? response.json() : new Error('Impossible d\'afficher l\'aperçu'))
             .then(data => {
                 let previewModalContent = previewModal.querySelector('.modal-body');
                 previewModalContent.innerHTML = data;
             })
-    })
+        })
 
-    previewModal.addEventListener('hidden.bs.modal', function () {
-        let previewModalContent = previewModal.querySelector('.modal-body');
-        previewModalContent.innerHTML = `<div class="spinner-grow" role="status"></div>
-        <div class="spinner-grow" role="status"></div>
-        <div class="spinner-grow" role="status"></div>`;
-    })
+        previewModal.addEventListener('hidden.bs.modal', function () {
+            let previewModalContent = previewModal.querySelector('.modal-body');
+            previewModalContent.innerHTML = `<div class="spinner-grow" role="status"></div>
+            <div class="spinner-grow" role="status"></div>
+            <div class="spinner-grow" role="status"></div>`;
+        })
+    }
+
 });
 
 //Met à jour les numéros des cases

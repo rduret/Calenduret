@@ -69,8 +69,8 @@ class UserType extends AbstractType
                 $form->add('plainPassword', RepeatedType::class, [
                     'type' => PasswordType::class,
                     'invalid_message' => 'Les mots de passe ne correspondent pas.',
-                    'first_options' => ['label' => 'Mot de passe *', 'attr' => ['placeholder' => "Mot de passe", 'pattern' => '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$', 'minLength' => 8]],
-                    'second_options' => ['label' => 'Vérification du mot de passe *', 'attr' => ['placeholder' => "Verification du mot de passe", 'pattern' => '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$', 'minLength' => 8]],
+                    'first_options' => ['label' => 'Mot de passe *', 'attr' => ['placeholder' => "Mot de passe", 'pattern' => '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\\#\\?\\!\\@\\$\\%\\^\\&\\*\\-]).{8,}$', 'minLength' => 8]],
+                    'second_options' => ['label' => 'Vérification du mot de passe *', 'attr' => ['placeholder' => "Verification du mot de passe", 'pattern' => '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\\#\\?\\!\\@\\$\\%\\^\\&\\*\\-]).{8,}$', 'minLength' => 8]],
                     'options' => ['attr' => ['autocomplete' => 'new-password']],
                     'required' => false,
                     'constraints' => [

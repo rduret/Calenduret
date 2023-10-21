@@ -3,11 +3,12 @@ const showHidePassword = () => {
     let iconEyeDefault = `far fa-eye`;
     let iconEyeSlashDefault = `far fa-eye-slash`;
     passwordInputs.forEach(function (el) {
+        let container = el.querySelector(`.input-group-text`);
         let icon = el.querySelector(`.input-group-text i`);
         let iconEye = el.dataset.hasOwnProperty('iconEye') ? el.dataset.iconEye : iconEyeDefault;
         let iconEyeSlash = el.dataset.hasOwnProperty('iconEyeSlash') ? el.dataset.iconEyeSlash : iconEyeSlashDefault;
         el.style.cursor = "pointer";
-        icon.addEventListener('click', function (event) {
+        container.addEventListener('click', function (event) {
             let input = el.querySelector('input');
             let end = input.value.length;
             input.focus();
@@ -29,5 +30,6 @@ const showHidePassword = () => {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("remi");
     showHidePassword();
 });

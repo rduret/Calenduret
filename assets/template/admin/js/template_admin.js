@@ -20,7 +20,6 @@ import "./modules/datatables"; // requires jQuery
 
 //Cropper & upload
 import 'cropperjs/dist/cropper.min.css'
-import '/assets/js/common/common'
 
 window.Cropper = require('cropperjs');
 import Upload from "/assets/js/common/upload";

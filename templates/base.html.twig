@@ -14,7 +14,10 @@
         {% endblock %}
     </head>
     <body>
-        {% include "front/_header.html.twig" %}
-        {% block body %}{% endblock %}
+        <div class="content">
+            {% include "front/_header.html.twig" %}
+            {% block body %}{% endblock %}
+            {% include "front/_footer.html.twig"%}
+        </div>
     </body>
 </html>

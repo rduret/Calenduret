@@ -22,30 +22,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
-    #[Route('/', name: 'home')]
-    public function home(): Response
-    {
-        $user = $this->getUser();
-        
-        if ($user !== null) {
-            if($this->isGranted('ROLE_ADMIN')){
-                return $this->redirectToRoute('home_admin');
-            } else {
-                return $this->redirectToRoute('home_user');
-            }
-        }
-
-        return $this->render('front/home.html.twig', [
-            'transparentNavbar' => true
-        ]);
-    }
-
-    #[Route('/dashboard', name: 'home_user')]
-    public function dashboard(): Response
-    {
-        return $this->render('front/dashboard.html.twig');
-    }
-
     #[Route('admin/utilisateurs/index', name: 'user_index')]
     public function index(UserRepository $userRepository): Response
     {

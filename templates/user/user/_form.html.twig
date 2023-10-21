@@ -31,6 +31,9 @@
                         {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
                         <span class="input-group-text"><i class="far fa-eye" aria-hidden="true"></i></span>
                     </div>
+                    <div class="small">
+                        Le mot de passe doit contenir obligatoirement un caractère en minuscule, un en majuscule, un chiffre et un caractère spécial (!@#$%^&*-)
+                    </div>
                     <div class="text-danger">
                         {{ form_errors(form.plainPassword.first) }}
                     </div>
