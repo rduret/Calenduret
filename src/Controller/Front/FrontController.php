@@ -2,9 +2,11 @@
 
 namespace App\Controller\Front;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\Calendar\ModelCalendarRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FrontController extends AbstractController
 {
@@ -26,10 +28,19 @@ class FrontController extends AbstractController
         ]);
     }
 
-    #[Route('/mon-espace', name: 'home_user')]
-    public function dashboard(): Response
+    #[Route('/mon-espace/calendriers/{page}', name: 'home_user')]
+    public function dashboard(ModelCalendarRepository $modelCalendarRepository,  PaginatorInterface $paginator, int $page = 1): Response
     {
-        return $this->render('front/dashboard.html.twig');
+        $user = $this->getUser();
+        $modelCalendarsQuery = $modelCalendarRepository->findBy(['user' => $user]);
+
+        $modelCalendars = $paginator->paginate($modelCalendarsQuery, $page, 5, [
+            'wrap-queries' => true
+        ]);
+
+        return $this->render('front/dashboard.html.twig', [
+            'modelCalendars' => $modelCalendars,
+        ]);
     }
 
     #[Route('/pages/condition-generales', name: 'page_cgu')]

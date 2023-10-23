@@ -166,7 +166,7 @@ header{
     }
 }
 
-//Homepage
+//HOMEPAGE
 .home-first{
     background-size: cover !important;
     height: 100vh;
@@ -196,6 +196,45 @@ header{
         font-size: 0.775em;
     }
 }
+
+//LISTE DES CALENDRIERS
+.list-calendars{
+    h1{
+        font-size: 2em;
+    }
+
+    .card-calendar{
+        background: none;
+        border: none;
+        overflow: hidden;
+
+        img{
+            border-radius: 5px;
+            -webkit-transition: .3s ease-in-out;
+	        transition: .3s ease-in-out;
+        }
+
+        .card-img-overlay{
+            background-image: linear-gradient(rgba(0, 0, 0, 0) 50%, rgb(0, 0, 0) 100%);
+
+            .card-title{
+                a{
+                    color: #fff;
+                    text-decoration: none;
+                }
+            }
+        }
+
+
+        &:hover{
+            img{
+                -webkit-transform: scale(1.2);
+	            transform: scale(1.2);
+            }
+        }
+    }
+}
+
 
 //FOOTER
 footer{
