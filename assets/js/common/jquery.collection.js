@@ -17,6 +17,11 @@
  */
 
 ;
+
+if (window.$ === undefined) {
+    window.$ = window.jQuery = require('jquery');
+}
+
 (function ($) {
 
     $.fn.collection = function (options) {

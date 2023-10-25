@@ -2,11 +2,16 @@
 
 namespace App\Controller\Front;
 
+use App\Service\Utils\UploadHandler;
+use App\Entity\Calendar\ModelCalendar;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Form\Calendar\FrontModelCalendarType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Calendar\ModelCalendarRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class FrontController extends AbstractController
 {
@@ -34,12 +39,97 @@ class FrontController extends AbstractController
         $user = $this->getUser();
         $modelCalendarsQuery = $modelCalendarRepository->findBy(['user' => $user]);
 
-        $modelCalendars = $paginator->paginate($modelCalendarsQuery, $page, 5, [
+        $modelCalendars = $paginator->paginate($modelCalendarsQuery, $page, 2, [
             'wrap-queries' => true
         ]);
 
         return $this->render('front/dashboard.html.twig', [
             'modelCalendars' => $modelCalendars,
+        ]);
+    }
+
+    #[Route('/mon-espace/calendriers/{id}/edit', name: 'user_model_calendar_edit')]
+    public function edit(Request $request, ModelCalendar $modelCalendar, UploadHandler $uploadHandler, ModelCalendarRepository $modelCalendarRepository): Response
+    {
+        $form = $this->createForm(FrontModelCalendarType::class, $modelCalendar);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //Gestion upload de l'image principal du calendrier
+            $file = $form->get('file')->getData();
+            if ($file !== null) {
+                try {
+                    $newFilename = $uploadHandler->uploadFile($file, $request->get('cropped-file'));
+
+                    if(file_exists($modelCalendar->getPath())){
+                        unlink($modelCalendar->getPath());
+                    }
+
+                    $modelCalendar->setPath($newFilename);
+                } catch (FileException $e) {
+                    $this->addFlash(
+                        'error',
+                        'Une erreur s\'est produite lors de l\'upload'
+                    );
+
+                    return $this->render('front/modelCalendar/edit.html.twig', [
+                        'model' => $modelCalendar,
+                        'form' => $form
+                    ]);
+                }
+            }
+
+            //Gestion upload des nouveaux fichier liés aux cases
+            $formsModelBoxes = $form->get('modelBoxes');
+
+            foreach ($formsModelBoxes as $formModelBoxes) {
+                $file = $formModelBoxes->get('file')->getData();
+                $modelBox = $formModelBoxes->getData();
+
+                if ($file !== null) {
+                    try {
+                        $newFilename = $uploadHandler->uploadFile($file);
+
+                        //Si un fichier était relié à la case, on le supprime
+                        if(file_exists($modelBox->getPath())){
+                            unlink($modelBox->getPath());
+                        }
+
+                        $mimeType = $file->getClientMimeType();
+
+                        $modelBox->setName(substr($file->getClientOriginalName(), 0, 50));
+                        $modelBox->setType(explode('/', $mimeType)[0]);
+                        $modelBox->setPath($newFilename);
+
+                    } catch (FileException $e) {
+                        $this->addFlash(
+                            'error',
+                            'Une erreur s\'est produite lors de l\'upload'
+                        );
+    
+                        return $this->render('front/modelCalendar/edit.html.twig', [
+                            'model' => $modelCalendar,
+                            'form' => $form
+                        ]);
+                    }
+                }
+            }
+
+            $modelCalendarRepository->save($modelCalendar, true);
+
+            $this->addFlash(
+                'success',
+                'Le modèle a bien été édité'
+            );
+
+            return $this->render('front/modelCalendar/edit.html.twig', [
+                'modelCalendar' => $modelCalendar,
+            ]);
+        }
+
+        return $this->render('front/modelCalendar/edit.html.twig', [
+            'model' => $modelCalendar,
+            'form' => $form
         ]);
     }
 

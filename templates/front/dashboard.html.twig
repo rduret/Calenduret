@@ -5,8 +5,13 @@
 {% block body %}
 <section class="my-5 py-md-3 list-calendars">
     <div class="container">
-        <div class="row">
-            <h1 class="mb-5">Mes calendriers</h1>
+        <div class="row mb-5">
+            <div class="col">
+                <h1 class="d-block">Mes calendriers</h1>
+            </div>
+            <div class="col text-end">
+                <a href="" class="btn-color-to-transparent small low-radius green">Créer un calendrier</a>
+            </div>
         </div>
         <div class="row">
             {% for modelCalendar in modelCalendars %}
@@ -14,8 +19,15 @@
                     <div class="card card-calendar h-100">
                         <img alt="Calendrier {{ modelCalendar.title }}" src="{{ asset(modelCalendar.path) }}"/>
                         <div class="card-img-overlay d-flex justify-content-center align-items-end">
+                            <div class="card-state">
+                                {% if modelCalendar.isPublished %}
+                                    <span class="badge rounded-pill bg-success">Publié</span>
+                                {% else %}
+                                    <span class="badge rounded-pill bg-warning">Non publié</span>
+                                {% endif %}
+                            </div>
                             <div class="card-title fw-bold text-center">
-                                <a class="stretched-link" href="#">{{ modelCalendar.title }}</a>
+                                <a class="stretched-link" href="{{ path("user_model_calendar_edit", {id: modelCalendar.id}) }}">{{ modelCalendar.title }}</a>
                             </div>
                         </div>
                     </div>

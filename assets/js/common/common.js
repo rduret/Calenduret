@@ -30,6 +30,5 @@ const showHidePassword = () => {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("remi");
     showHidePassword();
 });

@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Édition {{ model.title }}{% endblock %}
+
+{% block body %}
+
+<section class="edit-calendar my-5">
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center">Édition - Calendrier {{ model.title }}</h1>
+            {% include "front/modelCalendar/_form.html.twig" %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

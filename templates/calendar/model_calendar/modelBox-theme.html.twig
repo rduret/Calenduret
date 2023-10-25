@@ -23,9 +23,15 @@
             {{ form_label(form.file) }}
             <div class="my-2 d-flex">
                 {{ form_widget(form.file, {'attr': {'class': 'form-control', 'accept': 'video/*, audio/*, image/*'} }) }}
-                <a href="#" class="btn btn-danger ms-1 action-button model_calendar_boxes_modelBoxes-collection-remove model_calendar_boxes_modelBoxes-collection-action">
-                    <i class="fa fa-trash"></i>
-                </a>
+                {% if form.parent.parent.vars.name == "front_model_calendar" %} {# Si on est en front #}
+                    <a href="#" class="btn btn-danger ms-1 action-button front_model_calendar_modelBoxes-collection-remove front_model_calendar_modelBoxes-collection-action">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                {% else %}
+                    <a href="#" class="btn btn-danger ms-1 action-button model_calendar_boxes_modelBoxes-collection-remove model_calendar_boxes_modelBoxes-collection-action">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                {% endif %}
             </div>
             <div class="form-error">
                 {{ form_errors(form.file) }}

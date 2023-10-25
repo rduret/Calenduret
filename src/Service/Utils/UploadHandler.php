@@ -11,13 +11,42 @@ class UploadHandler
     /** @var array|string[]  */
     private array $allowedMimeTypes = [
         "application/pdf",
+        'application/x-pdf',
         "image/jpeg",
         "image/jpg",
         "image/gif",
         "image/png",
         "image/svg+xml",
         "image/svg",
-        "image/webp"
+        "image/webp",
+        "audio/mpeg",
+        "audio/wav",
+        "audio/ogg",
+        "audio/aac",
+        "audio/flac",
+        "audio/wave",
+        "audio/midi",
+        "audio/amr",
+        "audio/x-ms-wma",
+        "audio/mp4",
+        "audio/aiff",
+        "audio/x-flac",
+        "audio/x-aiff",
+        "video/mp4",
+        "video/quicktime",
+        "video/mpeg",
+        "video/3gpp",
+        "video/avi",
+        "video/x-flv",
+        "video/x-ms-wmv",
+        "video/x-matroska",
+        "video/webm",
+        "video/x-msvideo",
+        "video/x-ms-asf",
+        "video/x-m4v",
+        "video/ogg",
+        "video/h264",
+        "video/h265",
     ];
 
     private SluggerInterface $slugger;
@@ -40,9 +69,9 @@ class UploadHandler
      */
     private function moveFile(UploadedFile $uploadedFile, string $path, ?string $croppedFile): string
     {
-        // if (!in_array($uploadedFile->getMimeType(), $this->allowedMimeTypes)) {
-        //     throw new \Exception('Type de fichier non autorisé.', 415);
-        // }
+        if (!in_array($uploadedFile->getMimeType(), $this->allowedMimeTypes)) {
+            throw new \Exception('Type de fichier non autorisé.', 415);
+        }
         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
 
         $safeFilename = $this->slugger->slug($originalFilename);

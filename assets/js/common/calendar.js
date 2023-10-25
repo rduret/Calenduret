@@ -10,14 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
         allow_up: false,
         allow_down: false,
         add_at_the_end: true,
-        position_field_selector: '.position',
         fade_in: true,
         fade_out: true,
-        prototype_name: "{{ form.modelBoxes.vars.prototype.vars.name }}",
-        name_prefix: "{{ form.modelBoxes.vars.prototype.vars.full_name }}",
         add: "<a href='#' class='w-100 btn btn-warning action-button'>Ajouter une case</a>",
-        up: '<a href="#" class="btn btn-primary"><span class="fa fa-arrow-alt-circle-up"></span> Monter la case</a>',
-        down: '<a href="#" class="btn btn-primary"><span class="fa fa-arrow-alt-circle-down"></span> Descendre la case</a>',
         after_init: function () {
             updateIndexes();
         },

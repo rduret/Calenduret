@@ -21,16 +21,11 @@
 								</ul>
 							</li>
 						{% else %}
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-									<span>{{ app.user.firstname }}</span>
-								</a>
-								<ul class="dropdown-menu">
-									<a class="dropdown-item" href="#">
-										<i class="align-middle me-1" data-feather="user"></i>Mon profil</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
-								</ul>
+							<li class="nav-item me-3">
+								<a class="nav-link {% if( app.request.requestUri == path('home_user') ) %} active {% endif %}" href="{{ path('home_user') }}">Mes calendriers</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
 							</li>
 						{% endif %}
 					{% else %}
