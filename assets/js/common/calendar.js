@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         add_at_the_end: true,
         fade_in: true,
         fade_out: true,
-        add: "<a href='#' class='w-100 btn btn-warning action-button'>Ajouter une case</a>",
+        add: "<a href='#' class='w-100 btn btn-secondary action-button'>Ajouter une case</a>",
         after_init: function () {
             updateIndexes();
         },
@@ -108,6 +108,7 @@ function updateIndexes() {
 
     boxForms.forEach(boxForm => {
         boxForm.querySelector('.index').innerHTML = index;
+        boxForm.querySelector('.position').value = index;
         if (boxForm.dataset.id !== undefined) {
             let modelBox = document.querySelector(`.model-box[data-id="${boxForm.dataset.id}"]`);
             if (modelBox !== null) {
@@ -162,6 +163,7 @@ function drawBox(boxForm) {
 
     boxForm.querySelector('.coordX').value = coordX;
     boxForm.querySelector('.coordY').value = coordY;
+    console.log(boxForm);
 
 }
 

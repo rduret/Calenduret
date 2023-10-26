@@ -140,7 +140,8 @@ class FrontController extends AbstractController
             );
 
             return $this->render('front/modelCalendar/edit.html.twig', [
-                'modelCalendar' => $modelCalendar,
+                'model' => $modelCalendar,
+                'form' => $form
             ]);
         }
 
