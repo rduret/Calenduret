@@ -48,7 +48,7 @@ $("table.auto-table").DataTable({
 const sweetConfirm = function (e) {
     e.preventDefault();
     let href = '#';
-    if (this.hasOwnProperty('href')) {
+    if (this.getAttribute('href')) {
         href = this.href;
     } else if (this.dataset.hasOwnProperty('href')) {
         href = this.dataset.href

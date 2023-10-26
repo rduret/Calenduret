@@ -163,8 +163,6 @@ function drawBox(boxForm) {
 
     boxForm.querySelector('.coordX').value = coordX;
     boxForm.querySelector('.coordY').value = coordY;
-    console.log(boxForm);
-
 }
 
 //Permet de vérifier si un emplacement est disponible avec les coordonnées du point superieur gauche

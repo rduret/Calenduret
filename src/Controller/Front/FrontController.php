@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Calendar\ModelCalendarRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -148,6 +149,72 @@ class FrontController extends AbstractController
         return $this->render('front/modelCalendar/edit.html.twig', [
             'model' => $modelCalendar,
             'form' => $form
+        ]);
+    }
+
+    #[Route('/mon-espace/calendriers/{uuid}/delete', name: 'user_model_calendar_delete')]
+    public function delete(ModelCalendarRepository $modelCalendarRepository, string $uuid): Response
+    {
+        $user = $this->getUser();
+        $modelCalendar = $modelCalendarRepository->findOneBy(['uuid' => $uuid]);
+
+        if(in_array('ROLE_ADMIN', $user->getRoles())){
+            return $this->redirectToRoute('home_admin');
+        }
+
+        //Suppression du calendrier
+        if($modelCalendar !== null && $modelCalendar->getUser() === $user) {
+            $modelCalendarRepository->remove($modelCalendar, true);
+            $this->addFlash(
+                'success',
+                'Le modèle de calendrier a bien été supprimé.'
+            );
+        } else{
+            $this->addFlash(
+                'error',
+                'Erreur lors de la suppression du calendrier.'
+            );
+        }
+
+        return $this->redirectToRoute('home_user');
+    }
+
+    #[Route('/mon-espace/calendriers/{uuid}/change-state', name: 'user_model_calendar_change_state')]
+    public function changeState(ModelCalendarRepository $modelCalendarRepository, string $uuid, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        $modelCalendar = $modelCalendarRepository->findOneBy(['uuid' => $uuid]);
+
+        if(in_array('ROLE_ADMIN', $user->getRoles())){
+            return $this->redirectToRoute('home_admin');
+        }
+
+        //Changement état du calendrier
+        if($modelCalendar !== null && $modelCalendar->getUser() === $user) {
+            if($modelCalendar->isPublished()){
+                $modelCalendar->setIsPublished(false);
+                $em->flush();
+                $this->addFlash(
+                    'success',
+                    'Le calendrier a bien été dépublié.'
+                );
+            } else {
+                $modelCalendar->setIsPublished(true);
+                $em->flush();
+                $this->addFlash(
+                    'success',
+                    'Le calendrier a bien été publié.'
+                );
+            }
+        } else{
+            $this->addFlash(
+                'error',
+                'Erreur lors du changement d\'état du calendrier.'
+            );
+        }
+
+        return $this->redirectToRoute('user_model_calendar_edit', [
+            'uuid' => $modelCalendar->getUuid(),
         ]);
     }
 

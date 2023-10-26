@@ -15,7 +15,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6">
-                                {{ form_label(form.color, null, { 'label_attr': {'class': 'form-label'} }) }}
+                                <label class="form-label">Couleur * (bordure et interieur)</label>
                                 <div class="colorpicker"></div>
                                 <br/>
                                 {{ form_widget(form.color, { 'attr': {'class': 'colorpicker'} }) }}
@@ -45,6 +45,23 @@
                                     <img id="preview" alt="{{ model.title }}" src="{{ asset(model.path) }}" class="thumbnail img-responsive mt-2" width="130" height="175">
                                 {% endif %}
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 offset-md-1 text-end pe-md-5">
+                        {% if not model.isPublished %}
+                            <div>
+                                <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" class="btn btn-secondary px-4 my-2 w-100 confirm">Publier</a>
+                            </div>
+                        {% else %}
+                            <div>
+                                <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" class="btn btn-warning px-4 my-2 w-100 confirm">Dépublier</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-info px-4 my-2 w-100">Partager</a>
+                            </div>
+                        {% endif %}
+                        <div>
+                            <a href="{{ path('user_model_calendar_delete', {uuid: model.uuid}) }}" data-msg="Supprimer ce calendrier ?" class="btn btn-danger px-4 my-2 w-100 confirm">Supprimer</a>
                         </div>
                     </div>
                     <div class="col-12">
