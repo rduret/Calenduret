@@ -10,8 +10,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ColorType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class FrontModelCalendarType extends AbstractType
@@ -23,7 +22,7 @@ class FrontModelCalendarType extends AbstractType
                 'label' => 'Titre *',
                 'required' => true
             ])
-            ->add('color', ColorType::class, [
+            ->add('color', HiddenType::class, [
                 'label' => 'Couleur * (bordure et interieur)',
                 'required' => true,
             ])     

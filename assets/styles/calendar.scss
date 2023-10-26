@@ -37,8 +37,12 @@
 }
 
 .box-form-container{
-    width: 30%;
-    margin-right: 3%;
+    width: 28%;
+    margin-right: 5%;
+
+    label, input, a{
+        font-size: 13px;
+    }
 }
 
 .model-box{
@@ -51,7 +55,7 @@
 
 .model-box-title{
     font-weight: bold;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .model-box-number{

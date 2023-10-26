@@ -37,6 +37,11 @@ class FrontController extends AbstractController
     public function dashboard(ModelCalendarRepository $modelCalendarRepository,  PaginatorInterface $paginator, int $page = 1): Response
     {
         $user = $this->getUser();
+
+        if(in_array('ROLE_ADMIN', $user->getRoles())){
+            return $this->redirectToRoute('home_admin');
+        }
+
         $modelCalendarsQuery = $modelCalendarRepository->findBy(['user' => $user]);
 
         $modelCalendars = $paginator->paginate($modelCalendarsQuery, $page, 2, [
@@ -48,9 +53,21 @@ class FrontController extends AbstractController
         ]);
     }
 
-    #[Route('/mon-espace/calendriers/{id}/edit', name: 'user_model_calendar_edit')]
-    public function edit(Request $request, ModelCalendar $modelCalendar, UploadHandler $uploadHandler, ModelCalendarRepository $modelCalendarRepository): Response
+    #[Route('/mon-espace/calendriers/{uuid}/edit', name: 'user_model_calendar_edit')]
+    public function edit(Request $request, UploadHandler $uploadHandler, ModelCalendarRepository $modelCalendarRepository, string $uuid): Response
     {
+        $modelCalendar = $modelCalendarRepository->findOneBy(['uuid' => $uuid]);
+
+        $user = $this->getUser();
+        
+        if($modelCalendar->getUser() !== $user){
+            $this->addFlash(
+                'error',
+                'Vous n\'avez pas accès à ce calendrier'
+            );
+            return $this->redirectToRoute('home_user');
+        }
+
         $form = $this->createForm(FrontModelCalendarType::class, $modelCalendar);
         $form->handleRequest($request);
 

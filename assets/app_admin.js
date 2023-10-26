@@ -12,6 +12,10 @@ import './js/common/common';
 import interact from 'interactjs';
 window.interact = interact;
 
+//ColorPicker
+import '@simonwep/pickr/dist/themes/monolith.min.css';  // 'monolith' theme
+import Pickr from '@simonwep/pickr';
+window.Pickr = Pickr;
 
 const dataTableFr = require('./js/datatable-fr.json');
 const Swal = require("sweetalert2");
