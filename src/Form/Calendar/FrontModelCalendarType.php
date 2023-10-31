@@ -25,6 +25,7 @@ class FrontModelCalendarType extends AbstractType
             ->add('color', HiddenType::class, [
                 'label' => 'Couleur * (bordure et interieur)',
                 'required' => true,
+                'empty_data' => '#000'
             ])     
             ->add('file', FileType::class, [
                 'label' => 'Image de fond * (jpg, jpeg, png)',

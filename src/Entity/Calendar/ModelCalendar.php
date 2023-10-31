@@ -39,7 +39,7 @@ class ModelCalendar
     private Collection $calendars;
 
     #[ORM\Column]
-    private ?bool $isPublished = true;
+    private ?bool $isPublished = false;
 
     #[ORM\Column(length: 10)]
     private ?string $color = null;
@@ -48,6 +48,9 @@ class ModelCalendar
     {
         $this->modelBoxes = new ArrayCollection();
         $this->calendars = new ArrayCollection();
+
+        $uuid = Uuid::v4();
+        $this->uuid = $uuid;
     }
 
     public function getId(): ?int

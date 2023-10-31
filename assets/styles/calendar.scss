@@ -45,12 +45,16 @@
     }
 }
 
-.model-box{
+.model-box, .box{
     position: absolute;
     border: rgb(0, 0, 0, 0.5) solid 2px;
     height: 12%;
     width: 12%;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.box{
+    cursor: pointer;
 }
 
 .model-box-title{

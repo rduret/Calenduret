@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block body %}
+    <section class="show-calendar my-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <h1 class="mb-3 text-center">Calendrier {{ calendar.modelCalendar.title }}</h1>
+                        <div class="row align-items-center px-5 py-4">
+                            <div class="col-12">
+                                <div class="calendar-view mx-auto">
+                                    <div class="calendar-container">
+                                        <div id="calendar" class="calendar" style="background-image: url('{{ asset(calendar.modelCalendar.path) }}')">
+                                            {% for box in calendar.boxes %}
+                                                <div class="box" data-id="{{ box.id }}" style="left: {{ box.modelBox.coordX }}%; top: {{ box.modelBox.coordY }}%;">
+                                                    <div class="model-box-number">
+                                                        {{ box.modelBox.position }}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+    .calendar::after{
+        position: absolute;
+        content: "";
+        left: 100%;
+        margin: auto;
+        width: 10px;
+        height: 100%;
+        background: linear-gradient(to left, {{ calendar.modelCalendar.color }}50, {{ calendar.modelCalendar.color }});
+        clip-path: polygon(0px 0px, 100% 6px, 100% 99%, 0px 100%);
+    }
+    </style>
+{% endblock %}

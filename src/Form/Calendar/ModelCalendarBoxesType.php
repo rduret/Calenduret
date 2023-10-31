@@ -21,6 +21,7 @@ class ModelCalendarBoxesType extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
+                'prototype' => true,
                 'by_reference' => false,
                 'attr' => array(
                     'class' => 'collection-boxes',

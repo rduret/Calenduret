@@ -20,10 +20,10 @@ class ModelBox
     private ?string $name = 'Pas de fichier';
 
     #[ORM\Column(length: 255)]
-    private ?string $path = null;
+    private ?string $path = '';
 
     #[ORM\Column(length: 30)]
-    private ?string $type = null;
+    private ?string $type = '';
 
     #[ORM\Column]
     private ?int $coordX = null;
@@ -35,7 +35,7 @@ class ModelBox
     #[ORM\JoinColumn(nullable: false)]
     private ?ModelCalendar $modelCalendar = null;
 
-    #[ORM\OneToMany(mappedBy: 'modelBox', targetEntity: Box::class)]
+    #[ORM\OneToMany(mappedBy: 'modelBox', targetEntity: Box::class, orphanRemoval: true)]
     private Collection $boxes;
 
     #[ORM\Column]
@@ -55,6 +55,11 @@ class ModelBox
     public function __construct()
     {
         $this->boxes = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->id;	
     }
 
     public function getId(): ?int

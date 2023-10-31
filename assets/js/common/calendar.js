@@ -1,8 +1,11 @@
 const boxWidth = 12, boxHeight = 12; //En %
 const previewUrl = '/calendriers/previewBox';
+const shareUrl = '/calendriers/share';
 
 document.addEventListener("DOMContentLoaded", function () {
-    $(".collection-boxes").collection({
+    let collectionBoxes = $(".collection-boxes");
+
+    collectionBoxes.collection({
         allow_add: true,
         allow_remove: true,
         init_with_n_elements: 1,
@@ -10,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         allow_up: false,
         allow_down: false,
         add_at_the_end: true,
+        preserve_names: true,
         fade_in: true,
         fade_out: true,
         add: "<a href='#' class='w-100 btn btn-secondary action-button'>Ajouter une case</a>",
@@ -32,14 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
             let modelBox = document.querySelector(`.model-box[data-id="${element[0].dataset.id}"]`);
             modelBox.remove();
         },
-        // after_up: function () {
-        //     updateIndexes();
-        // },
-        // after_down: function () {
-        //     updateIndexes();
-        // },
     });
 
+    //Initialisation des éléments draggables
     interact('.model-box').draggable({
         listeners: {
             move(event) {
@@ -74,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ],
     })
 
+    // Chargement de la modale d'aperçu 
     let previewModal = document.getElementById('previewModal');
     if (previewModal != null) {
         previewModal.addEventListener('shown.bs.modal', function (event) {
@@ -99,6 +99,57 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
+    //Chargement de la modale de partage
+    let shareModal = document.getElementById('shareModal');
+    if (shareModal != null) {
+        shareModal.addEventListener('shown.bs.modal', function (event) {
+            let button = event.relatedTarget;
+            let modelUuid = button.getAttribute('data-bs-uuid');
+
+            let params = new URLSearchParams();
+            params.append('uuid', modelUuid);
+
+            fetch(`${shareUrl}?${params.toString()}`)
+                .then(response => response.ok ? response.json() : new Error('Impossible de générer un lien de partage'))
+                .then(path => {
+                    let shareModalContent = shareModal.querySelector('.modal-body');
+                    shareModalContent.innerHTML = `
+                    <p>Lien vers le calendrier : </p>
+                    <div class="d-flex align-items-center w-100 mx-auto">
+                        <div id="clipboard" class="input-group" style="cursor: pointer;">
+                            <input type="text" readonly id="calendar-url" class="form-control" style="cursor: pointer;" value="${path}"/>
+                            <span class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div id="alert-clipboard" class="alert alert-success align-items-center justify-content-center mx-auto mt-2" role="alert" style="width: fit-content; padding-top: 5px; padding-bottom: 8px; visibility: hidden;">
+                        <div>
+                            Lien copié dans le presse-papier
+                        </div>
+                    </div>`;
+
+                    document.querySelector('#clipboard').addEventListener('click', function (event) {
+                        let copyText = document.querySelector('#calendar-url');
+                        copyText.select();
+                        copyText.setSelectionRange(0, 99999);
+                        navigator.clipboard.writeText(copyText.value);
+                        document.querySelector('#alert-clipboard').style.visibility = 'visible';
+                    })
+                })
+        })
+
+        shareModal.addEventListener('hidden.bs.modal', function () {
+            let shareModalContent = shareModal.querySelector('.modal-body');
+            shareModalContent.innerHTML = `<div class="d-flex align-items-center w-50 mx-auto">
+            <strong>Génération du lien...</strong>
+            <div class="spinner-border spinner-border-sm ms-auto" role="status" aria-hidden="true"></div>
+            </div>`;
+        })
+    }
 });
 
 //Met à jour les numéros des cases

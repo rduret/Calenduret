@@ -2,12 +2,14 @@
 
 namespace App\Entity\Calendar;
 
+use Symfony\Component\Uid\Uuid;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\Calendar\CalendarRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CalendarRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Calendar
 {
     #[ORM\Id]
@@ -28,9 +30,25 @@ class Calendar
     #[ORM\OneToMany(mappedBy: 'calendar', targetEntity: Box::class, orphanRemoval: true)]
     private Collection $boxes;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function __construct()
     {
         $this->boxes = new ArrayCollection();
+
+        $uuid = Uuid::v4();
+        $this->uuid = $uuid;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updatedTimestamps(): void
+    {
+        $this->setUpdatedAt(new \DateTimeImmutable('now'));    
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTimeImmutable('now'));
+        }
     }
 
     public function getId(): ?int
@@ -100,6 +118,18 @@ class Calendar
                 $box->setCalendar(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

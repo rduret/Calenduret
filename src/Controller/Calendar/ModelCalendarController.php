@@ -3,6 +3,7 @@
 namespace App\Controller\Calendar;
 
 use Symfony\Component\Uid\Uuid;
+use App\Entity\Calendar\Calendar;
 use App\Entity\Calendar\ModelBox;
 use App\Service\Utils\UploadHandler;
 use App\Entity\Calendar\ModelCalendar;
@@ -12,13 +13,15 @@ use App\Form\Calendar\ModelCalendarBoxesType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\Calendar\ModelBoxRepository;
-use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\Calendar\ModelCalendarRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ModelCalendarController extends AbstractController
 {
@@ -58,8 +61,6 @@ class ModelCalendarController extends AbstractController
             }
 
             $modelCalendar->setUser($this->getUser());
-            $uuid = Uuid::v4();
-            $modelCalendar->setUuid($uuid);
 
             $modelCalendarRepository->save($modelCalendar, true);
 
@@ -141,9 +142,9 @@ class ModelCalendarController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $formsModelBoxes = $form->get('modelBoxes');
 
-            foreach ($formsModelBoxes as $formModelBoxes) {
-                $file = $formModelBoxes->get('file')->getData();
-                $modelBox = $formModelBoxes->getData();
+            foreach ($formsModelBoxes as $formModelBox) {
+                $file = $formModelBox->get('file')->getData();
+                $modelBox = $formModelBox->getData();
 
                 if ($file !== null) {
                     try {
@@ -235,10 +236,36 @@ class ModelCalendarController extends AbstractController
         $id = $request->get('id');
         $modelBox = $modelBoxRepository->find($id);
 
-        $htmlContent = $this->renderView('calendar/model_calendar/preview/previewModal.html.twig', [
-            'modelBox' => $modelBox,
-        ]);
+        if(($modelBox->getModelCalendar()->getUser() === $this->getUser()) || (in_array('ROLE_ADMIN', $this->getUser()->getRoles()))){
+            $htmlContent = $this->renderView('calendar/model_calendar/preview/previewModal.html.twig', [
+                'modelBox' => $modelBox,
+            ]);
+        } else {
+            $htmlContent = "Vous n'avez pas les droits d'accès";
+        }
 
         return new JsonResponse($htmlContent);
+    }
+
+    #[Route('/calendriers/share', name: 'model_calendar_share', methods: ['GET'])]
+    public function shareModal(Request $request, ModelCalendarRepository $modelCalendarRepository, EntityManagerInterface $em): JsonResponse
+    {
+        $uuid = $request->get('uuid');
+        $modelCalendar = $modelCalendarRepository->findOneBy(['uuid' => $uuid]);
+
+        if(($modelCalendar->getUser() === $this->getUser()) || (in_array('ROLE_ADMIN', $this->getUser()->getRoles()))){
+            // Générer le calendrier et retourner son uuid
+            $newCalendar = new Calendar();
+            $newCalendar->setModelCalendar($modelCalendar);
+            $em->persist($newCalendar);
+            $em->flush();
+            $response = $this->generateUrl('calendar_show', [
+                'uuid' => $newCalendar->getUuid()
+            ], UrlGeneratorInterface::ABSOLUTE_URL);
+        } else {
+            $response = "Vous n'avez pas les droits d'accès";
+        }
+
+        return new JsonResponse($response);
     }
 }

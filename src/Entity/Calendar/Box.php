@@ -14,7 +14,7 @@ class Box
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?bool $isOpen = null;
+    private ?bool $isOpen = false;
 
     #[ORM\ManyToOne(inversedBy: 'boxes')]
     #[ORM\JoinColumn(nullable: false)]
@@ -29,7 +29,7 @@ class Box
         return $this->id;
     }
 
-    public function isIsOpen(): ?bool
+    public function isOpen(): ?bool
     {
         return $this->isOpen;
     }
