@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Calendar{% endblock %}
+{% block title %}Calenduret - Calendrier {{ calendar.modelCalendar.title }}{% endblock %}
 
 {% block body %}
     <section class="show-calendar">
         <div class="container bg-white py-5">
             <div class="row justify-content-center">
-                    <h1 class="my-2 text-center text-uppercase">Calendrier {{ calendar.modelCalendar.title }}</h1>
+                    <h1 class="my-2 text-center">Calendrier {{ calendar.modelCalendar.title }}</h1>
                     <div class="row align-items-center px-5 py-4">
                         <div class="col-12">
                             <div class="calendar-view mx-auto">

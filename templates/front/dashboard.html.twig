@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes calendriers{% endblock %}
+{% block title %}Calenduret - Mes calendriers{% endblock %}
 
 {% block body %}
 <section class="list-calendars">
@@ -32,6 +32,8 @@
                         </div>
                     </div>
                 </div>
+            {% else %}
+                <p class="text-center">Vous n'avez pas encore créé de calendriers.</p>
             {% endfor %}
         </div>
         <div class="navigation">
