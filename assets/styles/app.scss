@@ -78,17 +78,16 @@ a:hover{
 }
 
 button.btn-color-to-transparent, a.btn-color-to-transparent {
+    --bs-border-radius: 50px;
     height: 50px;
     font-size: 16px;
     font-weight: 500;
     line-height: 8px;
-    padding: 1.15rem .75rem;
     letter-spacing: 1.5px;
     font-family: "Montserrat";
     text-decoration: none;
     text-transform: uppercase;
     color: #fff;
-    border-radius: 50px;
     transition: background-color .3s ease-in-out, color .3s ease-in-out;
     padding: 1.15rem 1.75rem;
 
@@ -97,12 +96,18 @@ button.btn-color-to-transparent, a.btn-color-to-transparent {
         font-size: 20px;
         line-height: 20px;
     }
+
     &.primary{
         background-color: $primary;
         border: 2px solid $primary;
         &:hover {
             color: #fff;
             background-color: transparent;
+        }
+        &.primary-hover{
+            &:hover{
+                color: $primary;
+            }
         }
     }
     &.secondary{
@@ -114,13 +119,41 @@ button.btn-color-to-transparent, a.btn-color-to-transparent {
         }
     }
 
+    &.warning{
+        background-color: $warning;
+        border: 2px solid $warning;
+        &:hover {
+            color: $warning;
+            background-color: transparent;
+        }
+    }
+
+    &.info{
+        background-color: $info;
+        border: 2px solid $info;
+        &:hover {
+            color: $info;
+            background-color: transparent;
+        }
+    }
+
+    &.danger{
+        background-color: $danger;
+        border: 2px solid $danger;
+        &:hover {
+            color: $danger;
+            background-color: transparent;
+        }
+    }
+
     &.small{
         font-size: 12px;
         padding: 0.75rem 1rem;
+        height: 40px;
     }
 
     &.low-radius{
-        border-radius: 10px;
+        border-radius: 5px;
     }
 }
 

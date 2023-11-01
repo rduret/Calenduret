@@ -63,11 +63,14 @@ const sweetConfirm = function (e) {
     }
     Swal.fire({
         text: msg,
-        icon: "warning",
+        icon: "info",
         showCancelButton: true,
-        confirmButtonColor: "#841B1B",
         confirmButtonText: "Confirmer",
-        cancelButtonText: "Annuler"
+        cancelButtonText: "Annuler",
+        customClass: {
+            confirmButton: 'btn-color-to-transparent small secondary',
+            cancelButton: 'btn-color-to-transparent small danger',
+        },
     }).then((confirm) => {
         if (confirm.value === true) {
             if (e.type === 'submit') {

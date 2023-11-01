@@ -64,22 +64,22 @@
                             <div class="col-md-3 offset-md-1 text-end pe-md-5">
                                 {% if not model.isPublished %}
                                     <div>
-                                        <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" class="btn btn-secondary px-4 my-2 w-100 confirm">Publier</a>
+                                        <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" class="d-inline-block text-center btn-color-to-transparent secondary small my-2 w-100 confirm">Publier</a>
                                     </div>
                                 {% else %}
                                     <div>
-                                        <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" data-msg="Attention, si vous dépubliez ce calendrier, les personnes avec qui vous l'avez partagé n'y auront plus accès." class="btn btn-warning px-4 my-2 w-100 confirm">Dépublier</a>
+                                        <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" data-msg="Attention, si vous dépubliez ce calendrier, les personnes avec qui vous l'avez partagé n'y auront plus accès." class="d-inline-block text-center btn-color-to-transparent warning small my-2 w-100 confirm">Dépublier</a>
                                     </div>
                                     <div>
-                                        <button type="button" href="#" data-bs-toggle="modal" data-bs-target="#shareModal" data-bs-uuid="{{model.uuid }}" class="btn btn-info px-4 my-2 w-100">Partager</button>
+                                        <button type="button" href="#" data-bs-toggle="modal" data-bs-target="#shareModal" data-bs-uuid="{{model.uuid }}" class="btn-color-to-transparent info small my-2 w-100">Partager</button>
                                     </div>
                                 {% endif %}
                                 <div>
-                                    <a href="{{ path('user_model_calendar_delete', {uuid: model.uuid}) }}" data-msg="Supprimer ce calendrier ?" class="btn btn-danger px-4 my-2 w-100 confirm">Supprimer</a>
+                                    <a href="{{ path('user_model_calendar_delete', {uuid: model.uuid}) }}" data-msg="Supprimer ce calendrier ?" class="d-inline-block text-center btn-color-to-transparent danger small my-2 w-100 confirm">Supprimer</a>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-secondary my-2 w-100">Valider</button>
+                                <button type="submit" class="btn-color-to-transparent secondary small my-2 w-100">Valider</button>
                             </div>
                         </div>
                         <hr/>
@@ -110,7 +110,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-secondary mt-5 w-100">Valider</button>
+                            <button type="submit" class="btn-color-to-transparent secondary small mb-2 mt-5 w-100">Valider</button>
                         </div>
 
                         {{ form_end(form) }}
