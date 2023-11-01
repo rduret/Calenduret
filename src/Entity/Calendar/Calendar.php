@@ -36,9 +36,7 @@ class Calendar
     public function __construct()
     {
         $this->boxes = new ArrayCollection();
-
-        $uuid = Uuid::v4();
-        $this->uuid = $uuid;
+        $this->uuid = Uuid::v4();
     }
 
     #[ORM\PrePersist]

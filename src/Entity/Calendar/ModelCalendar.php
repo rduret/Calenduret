@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Repository\Calendar\ModelCalendarRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[ORM\Entity(repositoryClass: ModelCalendarRepository::class)]
 class ModelCalendar

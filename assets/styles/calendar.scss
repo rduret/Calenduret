@@ -50,11 +50,6 @@
     border: rgb(0, 0, 0, 0.5) solid 2px;
     height: 12%;
     width: 12%;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
-}
-
-.box{
-    cursor: pointer;
 }
 
 .model-box-title{
@@ -72,6 +67,73 @@
         1px -1px 0 black,
         -1px  1px 0 black,
         1px  1px 0 black;
+}
+
+.show-calendar{
+    .box{
+        cursor: pointer;
+    }
+
+    .calendar-bg{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: cover;
+    }
+
+    .background{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .box-front {
+        width: 100%;
+        height: 100%;
+        transform-origin: left;
+        position: absolute;
+        z-index: 10;
+        transition: 2s;
+        transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
+    }
+      
+    .box-inside {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .preview-button{
+            button{
+                display: none;
+                background: none;
+                color: inherit;
+                border: none;
+                padding: 0;
+                font: inherit;
+                cursor: pointer;
+                outline: inherit;
+            }
+        }
+    }
+
+    .box.open{
+        cursor: default;
+
+        .box-front{
+            transform: rotateY(-90deg);
+        }
+
+        .box-inside{
+            box-shadow: inset 1px 0px 0px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .preview-button button{
+            display: block;
+        }
+    }
 }
 
 .preview{

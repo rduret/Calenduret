@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         preserve_names: true,
         fade_in: true,
         fade_out: true,
-        add: "<a href='#' class='w-100 btn btn-secondary action-button'>Ajouter une case</a>",
+        add: "<a href='#' class='w-100 btn btn-primary action-button'>Ajouter une case</a>",
         after_init: function () {
             updateIndexes();
         },
@@ -78,10 +78,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (previewModal != null) {
         previewModal.addEventListener('shown.bs.modal', function (event) {
             let button = event.relatedTarget;
-            let modelBoxId = button.getAttribute('data-bs-id');
+            let modelBoxUuid = button.getAttribute('data-bs-uuid');
 
             let params = new URLSearchParams();
-            params.append('id', modelBoxId);
+            params.append('uuid', modelBoxUuid);
 
             fetch(`${previewUrl}?${params.toString()}`)
             .then(response => response.ok ? response.json() : new Error('Impossible d\'afficher l\'aperçu'))
@@ -171,6 +171,7 @@ function updateIndexes() {
     });
 }
 
+
 //Ajoute une case sur l'aperçu du calendrier
 function drawBox(boxForm) {
     const stepX = 5, stepY = 5;
@@ -243,5 +244,4 @@ function generateRandomId(length) {
         randomId += characters.charAt(randomIndex);
     }
     return randomId;
-}
-
+} 

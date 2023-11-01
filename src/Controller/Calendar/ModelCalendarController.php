@@ -233,16 +233,12 @@ class ModelCalendarController extends AbstractController
     #[Route('/calendriers/previewBox', name: 'model_calendar_preview', methods: ['GET'])]
     public function previewModelBoxModal(Request $request, ModelBoxRepository $modelBoxRepository): JsonResponse
     {
-        $id = $request->get('id');
-        $modelBox = $modelBoxRepository->find($id);
+        $uuid = $request->get('uuid');
+        $modelBox = $modelBoxRepository->findOneBy(['uuid' => $uuid]);
 
-        if(($modelBox->getModelCalendar()->getUser() === $this->getUser()) || (in_array('ROLE_ADMIN', $this->getUser()->getRoles()))){
-            $htmlContent = $this->renderView('calendar/model_calendar/preview/previewModal.html.twig', [
-                'modelBox' => $modelBox,
-            ]);
-        } else {
-            $htmlContent = "Vous n'avez pas les droits d'accès";
-        }
+        $htmlContent = $this->renderView('calendar/model_calendar/preview/previewModal.html.twig', [
+            'modelBox' => $modelBox,
+        ]);
 
         return new JsonResponse($htmlContent);
     }

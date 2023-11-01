@@ -30,6 +30,10 @@ window.Pickr = Pickr;
 //Sweetalert2
 const Swal = require("sweetalert2");
 
+//Html2Canvas
+import html2canvas from 'html2canvas';
+window.html2canvas = html2canvas;
+
 const updateConfirmListeners = function () {
     let confirmElements = document.querySelectorAll(".confirm");
     confirmElements.forEach(function (confirmElement) {

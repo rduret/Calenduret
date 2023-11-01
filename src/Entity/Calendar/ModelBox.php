@@ -2,10 +2,11 @@
 
 namespace App\Entity\Calendar;
 
+use Symfony\Component\Uid\Uuid;
+use Doctrine\ORM\Mapping as ORM;
 use App\Repository\Calendar\ModelBoxRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ModelBoxRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -41,6 +42,9 @@ class ModelBox
     #[ORM\Column]
     private ?int $position = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $uuid = null;
+
     #[ORM\PreRemove]
     public function removeFile(): void
     {
@@ -55,6 +59,7 @@ class ModelBox
     public function __construct()
     {
         $this->boxes = new ArrayCollection();
+        $this->uuid = Uuid::v4();
     }
 
     public function __toString()
@@ -177,6 +182,18 @@ class ModelBox
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(string $uuid): self
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }

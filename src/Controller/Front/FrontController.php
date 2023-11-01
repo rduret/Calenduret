@@ -47,7 +47,7 @@ class FrontController extends AbstractController
 
         $modelCalendarsQuery = $modelCalendarRepository->findBy(['user' => $user]);
 
-        $modelCalendars = $paginator->paginate($modelCalendarsQuery, $page, 2, [
+        $modelCalendars = $paginator->paginate($modelCalendarsQuery, $page, 16, [
             'wrap-queries' => true
         ]);
 
@@ -319,6 +319,7 @@ class FrontController extends AbstractController
             }
 
             $em->flush();
+            $em->refresh($calendar);
 
             return $this->render('calendar/calendar/show.html.twig', [
                 'calendar' => $calendar,

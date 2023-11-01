@@ -2,8 +2,10 @@
 
 namespace App\Entity\Calendar;
 
-use App\Repository\Calendar\BoxRepository;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\Calendar\BoxRepository;
+
 
 #[ORM\Entity(repositoryClass: BoxRepository::class)]
 class Box
@@ -23,6 +25,13 @@ class Box
     #[ORM\ManyToOne(inversedBy: 'boxes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?ModelBox $modelBox = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $uuid = null;
+
+    public function __construct() {
+        $this->uuid = Uuid::v4();
+    }
 
     public function getId(): ?int
     {
@@ -61,6 +70,18 @@ class Box
     public function setModelBox(?ModelBox $modelBox): self
     {
         $this->modelBox = $modelBox;
+
+        return $this;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(string $uuid): self
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }
