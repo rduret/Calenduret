@@ -3,8 +3,8 @@
 {% block title %}Mes calendriers{% endblock %}
 
 {% block body %}
-<section class="my-5 py-md-3 list-calendars">
-    <div class="container">
+<section class="list-calendars">
+    <div class="container py-5 px-5 bg-white">
         <div class="row mb-5">
             <div class="col">
                 <h1 class="d-block">Mes calendriers</h1>
@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             {% for modelCalendar in modelCalendars %}
-                <div class="col-md-3 col-6 mb-4">
+                <div class="col-md-3 col-6 mb-4 mt-5">
                     <div class="card card-calendar h-100">
                         <img alt="Calendrier {{ modelCalendar.title }}" src="{{ asset(modelCalendar.path) }}"/>
                         <div class="card-img-overlay d-flex justify-content-center align-items-end">

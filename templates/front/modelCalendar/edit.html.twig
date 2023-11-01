@@ -3,117 +3,117 @@
 {% block title %}Calendrier - Édition {{ model.title }}{% endblock %}
 
 {% block body %}
-    <section class="edit-calendar my-5">
-        <div class="container-fluid">
+    <section class="edit-calendar">
+        <div class="container py-5 bg-white">
             <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ path('home_user') }}">Mes calendriers</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Édition {{ model.title }}</li>
-                        </ol>
-                    </nav>
-                    <div class="card">
-                        <h1 class="my-5 text-center">Édition - Calendrier {{ model.title }}</h1>
-                        <div class="card-body">
-                            {{ form_start(form) }}
-                            <div class="row px-5 py-4">
-                                <div class="col-8">
-                                    <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                            {{ form_label(form.title, null, { 'label_attr': {'class': 'form-label'} }) }}
-                                            {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
-                                            <div class="text-danger">
-                                                {{ form_errors(form.title) }}
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">Couleur * (bordure et interieur)</label>
-                                            <div class="colorpicker"></div>
-                                            <br/>
-                                            {{ form_widget(form.color, { 'attr': {'class': 'colorpicker'} }) }}
-                                            <div class="text-danger">
-                                                {{ form_errors(form.color) }}
-                                            </div>
+                <div class="col-12 px-5 py-4">
+                    <div class="row">
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ path('home_user') }}">Mes calendriers</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Édition {{ model.title }}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <h1 class="mb-5 text-center">Édition - Calendrier {{ model.title }}</h1>
+                        <div class="row px-5 py-4">
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        {{ form_label(form.title, null, { 'label_attr': {'class': 'form-label'} }) }}
+                                        {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+                                        <div class="text-danger">
+                                            {{ form_errors(form.title) }}
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="mb-3 col-12">
-                                            {% set isRequiredFile = false %}
-                                            {% if model.path == null %}
-                                                {% set isRequiredFile = true %}
-                                            {% endif %}
-
-                                            {{ form_label(form.file, null, { 'label_attr': {'class': 'form-label'} }) }}
-                                            {{ form_widget(form.file, { 'attr': {'class': 'form-control upload-img', 'data-preview-target': '#preview', 'data-cropped-target': '#cropped-file', 'data-cropper-width': '130', 'data-cropper-height': '175'}, required: isRequiredFile }) }}
-                                            <div class="text-danger">
-                                                {{ form_errors(form.file) }}
-                                            </div>
-                                        </div>
-                                        <input id="cropped-file" name="cropped-file" type="hidden">
-                                        <div class="mb-3 col-12 d-flex flex-column">
-                                            {% if null == model.path %}
-                                                <img id="preview" alt="{{ model.title }}" src="https://via.placeholder.com/130x175" class="thumbnail img-responsive mt-2" width="130" height="175">
-                                            {% else %}
-                                                <img id="preview" alt="{{ model.title }}" src="{{ asset(model.path) }}" class="thumbnail img-responsive mt-2" width="130" height="175">
-                                            {% endif %}
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Couleur * (bordure et interieur)</label>
+                                        <div class="colorpicker"></div>
+                                        <br/>
+                                        {{ form_widget(form.color, { 'attr': {'class': 'colorpicker'} }) }}
+                                        <div class="text-danger">
+                                            {{ form_errors(form.color) }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 offset-md-1 text-end pe-md-5">
-                                    {% if not model.isPublished %}
-                                        <div>
-                                            <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" class="btn btn-secondary px-4 my-2 w-100 confirm">Publier</a>
+                                <div class="row">
+                                    <div class="mb-3 col-12">
+                                        {% set isRequiredFile = false %}
+                                        {% if model.path == null %}
+                                            {% set isRequiredFile = true %}
+                                        {% endif %}
+
+                                        {{ form_label(form.file, null, { 'label_attr': {'class': 'form-label'} }) }}
+                                        {{ form_widget(form.file, { 'attr': {'class': 'form-control upload-img', 'data-preview-target': '#preview', 'data-cropped-target': '#cropped-file', 'data-cropper-width': '130', 'data-cropper-height': '175'}, required: isRequiredFile }) }}
+                                        <div class="text-danger">
+                                            {{ form_errors(form.file) }}
                                         </div>
-                                    {% else %}
-                                        <div>
-                                            <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" data-msg="Attention, si vous dépubliez ce calendrier, les personnes avec qui vous l'avez partagé n'y auront plus accès." class="btn btn-warning px-4 my-2 w-100 confirm">Dépublier</a>
-                                        </div>
-                                        <div>
-                                            <button type="button" href="#" data-bs-toggle="modal" data-bs-target="#shareModal" data-bs-uuid="{{model.uuid }}" class="btn btn-info px-4 my-2 w-100">Partager</button>
-                                        </div>
-                                    {% endif %}
+                                    </div>
+                                    <input id="cropped-file" name="cropped-file" type="hidden">
+                                    <div class="mb-3 col-12 d-flex flex-column">
+                                        {% if null == model.path %}
+                                            <img id="preview" alt="{{ model.title }}" src="https://via.placeholder.com/130x175" class="thumbnail img-responsive mt-2" width="130" height="175">
+                                        {% else %}
+                                            <img id="preview" alt="{{ model.title }}" src="{{ asset(model.path) }}" class="thumbnail img-responsive mt-2" width="130" height="175">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 offset-md-1 text-end pe-md-5">
+                                {% if not model.isPublished %}
                                     <div>
-                                        <a href="{{ path('user_model_calendar_delete', {uuid: model.uuid}) }}" data-msg="Supprimer ce calendrier ?" class="btn btn-danger px-4 my-2 w-100 confirm">Supprimer</a>
+                                        <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" class="btn btn-secondary px-4 my-2 w-100 confirm">Publier</a>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-secondary my-2 w-100">Valider</button>
+                                {% else %}
+                                    <div>
+                                        <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" data-msg="Attention, si vous dépubliez ce calendrier, les personnes avec qui vous l'avez partagé n'y auront plus accès." class="btn btn-warning px-4 my-2 w-100 confirm">Dépublier</a>
+                                    </div>
+                                    <div>
+                                        <button type="button" href="#" data-bs-toggle="modal" data-bs-target="#shareModal" data-bs-uuid="{{model.uuid }}" class="btn btn-info px-4 my-2 w-100">Partager</button>
+                                    </div>
+                                {% endif %}
+                                <div>
+                                    <a href="{{ path('user_model_calendar_delete', {uuid: model.uuid}) }}" data-msg="Supprimer ce calendrier ?" class="btn btn-danger px-4 my-2 w-100 confirm">Supprimer</a>
                                 </div>
                             </div>
-                            <hr/>
-                            <div class="row align-items-center px-5 py-4">
-                                <div class="col-xxl-5 ps-0">
-                                    <div class="calendar-view mx-auto">
-                                        <div class="calendar-container">
-                                            <div id="calendar" class="calendar" style="background-image: url('{{ asset(model.path) }}')">
-                                                {% for modelBox in model.modelBoxes %}
-                                                    <div class="model-box" data-id="{{ modelBox.id }}" style="left: {{ modelBox.coordX }}%; top: {{ modelBox.coordY }}%;">
-                                                        <div class="model-box-number">
-                                                            {{ modelBox.position }}
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xxl-7 px-5 mt-5 mt-xxl-0">
-                                    <div class="d-flex">
-                                        <div id="boxes">
-                                            {% form_theme form.modelBoxes
-                                                'calendar/model_calendar/modelBox-theme.html.twig'
-                                                'utils/jquery.collection.html.twig'
-                                            %}
-                                            {{ form_widget(form.modelBoxes) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-secondary mt-5 w-100">Valider</button>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-secondary my-2 w-100">Valider</button>
                             </div>
-
-                            {{ form_end(form) }}
                         </div>
+                        <hr/>
+                        <div class="row align-items-center px-5 py-4">
+                            <div class="col-xxl-5 ps-0">
+                                <div class="calendar-view mx-auto">
+                                    <div class="calendar-container">
+                                        <div id="calendar" class="calendar" style="background-image: url('{{ asset(model.path) }}')">
+                                            {% for modelBox in model.modelBoxes %}
+                                                <div class="model-box" data-id="{{ modelBox.id }}" style="left: {{ modelBox.coordX }}%; top: {{ modelBox.coordY }}%;">
+                                                    <div class="model-box-number">
+                                                        {{ modelBox.position }}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-7 px-5 mt-5 mt-xxl-0">
+                                <div class="d-flex">
+                                    <div id="boxes">
+                                        {% form_theme form.modelBoxes
+                                            'calendar/model_calendar/modelBox-theme.html.twig'
+                                            'utils/jquery.collection.html.twig'
+                                        %}
+                                        {{ form_widget(form.modelBoxes) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-secondary mt-5 w-100">Valider</button>
+                        </div>
+
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
