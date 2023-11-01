@@ -15,6 +15,7 @@ class BoxController extends AbstractController
     public function openBox(Box $box, EntityManagerInterface $em): JsonResponse
     {
        $box->setIsOpen(true);
+       $box->getCalendar()->setUpdatedAt(new \DateTimeImmutable());
        $em->flush();
 
        return new JsonResponse('Case mise à jour avec succès');
