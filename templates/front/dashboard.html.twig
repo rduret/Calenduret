@@ -5,17 +5,17 @@
 {% block body %}
 <section class="list-calendars">
     <div class="container py-5 px-5 bg-white">
-        <div class="row mb-5">
-            <div class="col">
+        <div class="row flex-column flex-md-row mb-5">
+            <div class="col text-center text-lg-start">
                 <h1 class="d-block">Mes calendriers</h1>
             </div>
-            <div class="col text-end">
+            <div class="col text-center text-lg-end mt-4 mt-md-2">
                 <a href="{{ path('user_model_calendar_new') }}" class="btn-color-to-transparent small secondary">Créer un calendrier</a>
             </div>
         </div>
         <div class="row">
             {% for modelCalendar in modelCalendars %}
-                <div class="col-md-3 col-6 mb-4 mt-5">
+                <div class="col-md-3 col-6 mb-4 mt-4">
                     <div class="card card-calendar h-100">
                         <img alt="Calendrier {{ modelCalendar.title }}" src="{{ asset(modelCalendar.path) }}"/>
                         <div class="card-img-overlay d-flex justify-content-center align-items-end">

@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         preserve_names: true,
         fade_in: true,
         fade_out: true,
-        add: "<button class='btn-color-to-transparent primary primary-hover small action-button w-100'>Ajouter une case</button>",
+        add: "<button class='btn btn-primary btn-color-to-transparent primary primary-hover small action-button w-100'>Ajouter une case</button>",
         after_init: function () {
             updateIndexes();
         },

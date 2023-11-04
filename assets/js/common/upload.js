@@ -83,7 +83,7 @@ class Upload {
             let button = document.createElement('button');
             button.type = `button`;
             button.id = `cropper-button-${inputData.preview.id}`;
-            button.className = `btn btn-secondary btn-crop mt-3`;
+            button.className = `btn btn-primary btn-color-to-transparent warning small btn-crop mt-3`;
             button.innerHTML = `Recadrer l'image`;
             div.appendChild(button);
             inputData.preview.parentNode.insertBefore(div, inputData.preview.nextSibling);

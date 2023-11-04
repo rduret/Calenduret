@@ -3,11 +3,13 @@
 {% block title %}Calenduret - Calendrier {{ calendar.modelCalendar.title }}{% endblock %}
 
 {% block body %}
-    <section class="show-calendar">
+    <section class="show-calendar" style="background: url('{{ asset('build/images/background.jpg') }}')">
+        <div class="d-none d-md-block black-filter"></div>
         <div class="container bg-white py-5">
             <div class="row justify-content-center">
+                <div class="col-12">
                     <h1 class="my-2 text-center">Calendrier {{ calendar.modelCalendar.title }}</h1>
-                    <div class="row align-items-center px-5 py-4">
+                    <div class="row align-items-center px-2 py-4">
                         <div class="col-12">
                             <div class="calendar-view mx-auto">
                                 <div class="calendar-container">
@@ -49,7 +51,7 @@
 
     <!-- Modal Preview -->
     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered .modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

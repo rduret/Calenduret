@@ -3,15 +3,15 @@
 {% block title %}Calenduret - Calendriers de l'Avent virtuels{% endblock %}
 
 {% block body %}
-<section class="home-first" style="background: url('{{ asset('build/images/background.jpg') }}')">
+<section class="home-first">
     <div class="content">
         <div class="text-center">
             <h1>Créez votre propre calendrier personnalisé</h1>
         </div>
 
-        <div class="mt-5">
-            <a class="btn-color-to-transparent primary rounded me-4" href=" {{ path('app_register') }} ">S'inscrire</a>
-            <a class="btn-color-to-transparent primary rounded" href=" {{ path('app_login') }} ">Se connecter</a>
+        <div class="mt-5 home-buttons">
+            <a class="btn-color-to-transparent primary high-radius me-4" href=" {{ path('app_register') }} ">S'inscrire</a>
+            <a class="btn-color-to-transparent primary high-radius" href=" {{ path('app_login') }} ">Se connecter</a>
         </div>
     </div>
 

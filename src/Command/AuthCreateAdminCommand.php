@@ -16,7 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
     name: 'auth:create-admin',
-    description: 'Add a short description for your command',
+    description: 'Create an administrator account',
 )]
 class AuthCreateAdminCommand extends Command
 {

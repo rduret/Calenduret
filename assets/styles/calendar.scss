@@ -45,6 +45,10 @@
     }
 }
 
+.model-box{
+    touch-action: none;
+}
+
 .model-box, .box{
     position: absolute;
     border: rgb(0, 0, 0, 0.5) solid 2px;
@@ -70,6 +74,8 @@
 }
 
 .show-calendar{
+    background-size: cover !important;
+
     .calendar-view{
         max-width: 500px;
     }
@@ -143,5 +149,16 @@
 .preview{
     .preview-image{
         max-width: 100%;
+    }
+}
+
+@media (max-width: 992px){
+    .box-form-container{
+        width: 40%;
+        margin-right: 10%;
+    
+        label, input, a{
+            font-size: 13px;
+        }
     }
 }

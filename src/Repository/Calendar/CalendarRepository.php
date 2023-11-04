@@ -39,28 +39,19 @@ class CalendarRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Calendar[] Returns an array of Calendar objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Calendar[] Returns an array of Calendar objects
+    */
+   public function getUnusedCalendars(): array
+   {
+        $limitDate = new \DateTime();
+        $limitDate->modify('-2 months');
 
-//    public function findOneBySomeField($value): ?Calendar
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+       return $this->createQueryBuilder('c')
+           ->andWhere('c.updatedAt <= :limitDate')
+           ->setParameter('limitDate', $limitDate)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 }

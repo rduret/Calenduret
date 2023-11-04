@@ -4,9 +4,9 @@
 
 {% block body %}
     <section class="edit-calendar">
-        <div class="container py-5 bg-white">
+        <div class="container py-2 py-md-4 bg-white">
             <div class="row justify-content-center">
-                <div class="col-12 px-5 py-4">
+                <div class="col-12 p-4 px-md-5">
                     <div class="row">
                         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -16,10 +16,10 @@
                         </nav>
                     </div>
                     {{ form_start(form) }}
-                    <div class="row">
-                        <h1 class="mb-5 text-center">Édition - Calendrier {{ model.title }}</h1>
-                        <div class="row px-5 py-4">
-                            <div class="col-8">
+                    <div class="row justify-content-center">
+                        <h1 class="mb-3 mt-4 mb-md-5 text-center">Édition - Calendrier {{ model.title }}</h1>
+                        <div class="row flex-column-reverse flex-md-row py-md-4">
+                            <div class="col-md-8">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         {{ form_label(form.title, null, { 'label_attr': {'class': 'form-label'} }) }}
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 offset-md-1 text-end pe-md-5">
+                            <div class="col-md-3 mb-4 offset-md-1 text-end pe-md-5">
                                 {% if not model.isPublished %}
                                     <div>
                                         <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" class="d-inline-block text-center btn-color-to-transparent secondary small my-2 w-100 confirm">Publier</a>
@@ -78,12 +78,14 @@
                                     <a href="{{ path('user_model_calendar_delete', {uuid: model.uuid}) }}" data-msg="Supprimer ce calendrier ?" class="d-inline-block text-center btn-color-to-transparent danger small my-2 w-100 confirm">Supprimer</a>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row mb-4">
                             <div class="col-12">
                                 <button type="submit" class="btn-color-to-transparent secondary small my-2 w-100">Valider</button>
                             </div>
                         </div>
                         <hr/>
-                        <div class="row align-items-center px-5 py-4">
+                        <div class="row align-items-center px-md-5 py-4">
                             <div class="col-xxl-5 ps-0">
                                 <div class="calendar-view mx-auto">
                                     <div class="calendar-container">
@@ -99,7 +101,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xxl-7 px-5 mt-5 mt-xxl-0">
+                            <div class="col-xxl-7 px-md-5 mt-5 mt-xxl-0">
                                 <div class="d-flex">
                                     <div id="boxes">
                                         {% form_theme form.modelBoxes
@@ -139,7 +141,7 @@
 
     <!-- Modal Preview -->
     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered .modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
