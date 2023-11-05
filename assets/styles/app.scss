@@ -30,33 +30,48 @@ $info: #0d6efd;
     src: url('fonts/DancingScript-VariableFont_wght.ttf');
 }
 
-html, body {
-    min-height: 100%;
+//GENERAL
+html {
+    height: 100%;
 }
 
 body {
     display: flex;
     flex-direction: column;
-    background-image: url('./images/background.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    height: 100%;
 }
 
 section{
     position: relative;
 }
 
+section.error{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .container-fluid{
+        z-index: 1;
+
+        h1{
+            color: #fff;
+            text-align: center;
+            font-size: 4em;
+            margin-top: -100px;
+        }
+    }
+}
+
 .container{
     position: relative;
 }
 
-//GENERAL
-body {
-    background-color: #E0E0E0;
-}
-
 .content{
     flex: 1 1 auto;
+    background-image: url('./images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 h1, p, a{
@@ -180,7 +195,7 @@ button.btn-color-to-transparent, a.btn-color-to-transparent {
     width: 100%;
     height: 100%;
     background-color: #0a2621;
-    opacity: 0.2;
+    opacity: 0.3;
 }
 
 //HEADER
@@ -250,7 +265,6 @@ header{
 
 //HOMEPAGE
 .home-first{
-    background-size: cover !important;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -261,7 +275,7 @@ header{
         font-size: 4em;
     }
 
-    .content{
+    .home-title{
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -445,6 +459,12 @@ footer{
         a{
             margin-top: 5px;
             margin-bottom: 5px;
+        }
+    }
+
+    section.error{
+        h1{
+            font-size: 2.5em !important;
         }
     }
 }
