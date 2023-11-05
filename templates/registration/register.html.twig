@@ -4,7 +4,7 @@
 
 {% block body %}
 <section class="register">
-    {{ form_start(registrationForm) }}
+    {{ form_start(registrationForm, {attr: {id: 'registration_form'}}) }}
     <div class="container my-5">
         <div class="card py-1 py-md-5">
             <div class="row justify-content-center">
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-3">
+                        <div class="row mt-3 align-items-baseline">
                             <div class="col-md-6">
                                 <div class="input-group show-hide-pwd" style="cursor: pointer;">
                                     {{ form_widget(registrationForm.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
@@ -81,4 +81,27 @@
         </div>
     </div>
 </section>
+
+<script>
+    let formRegister = document.getElementById("registration_form");
+    formRegister.addEventListener('submit', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        grecaptcha.execute('6Lc14vYoAAAAAPG3TCf3ylWOhqTI3sAAXbU8djG3', {action: 'submit'}).then(function (token) {
+            let captchaEl = document.getElementById('g-recaptcha');
+            if(captchaEl === null) {
+                let captcha = document.createElement("input");
+                captcha.setAttribute('type', 'hidden');
+                captcha.setAttribute('name', 'g-recaptcha');
+                captcha.setAttribute('id', 'g-recaptcha');
+                captcha.value = token;
+                formRegister.appendChild(captcha);
+            } else {
+                captchaEl.value = token;
+            }
+            formRegister.submit();
+        });
+    });
+</script>
+
 {% endblock %}
