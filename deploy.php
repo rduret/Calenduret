@@ -25,4 +25,5 @@ task('build', function () {
 });
 
 after('deploy:update_code', 'build');
+after('deploy:update_code', 'database:migrate');
 after('deploy:failed', 'deploy:unlock');
