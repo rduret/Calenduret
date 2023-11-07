@@ -4,7 +4,7 @@
 
 {% block meta %}
     <meta name="description" content="Un calendrier conçu spécialement pour vous est disponible.">
-	<meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset(calendar.modelCalendar.path) }}" />
+	<meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ calendar.modelCalendar.path }}" />
 {% endblock %}
 
 {% block body %}
