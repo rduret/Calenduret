@@ -8,13 +8,7 @@
 		
         {% block meta %}
 			<meta name="description" content="Créez et personnalisez votre propre calendrier de l'Avent.">
-
-			{# <meta property="og:type" content="article" />
-			<meta property="og:title" content="Article sur l'Open Graph par Referenseo" />
-			<meta property="og:url" content="http://www.yakaferci.com/open-graph/" />
-			<meta property="og:image" content="http://referenseo/images/open-graph.jpg" />
-			<meta property="og:site_name" content="Agence de référencement Referenseo" /> #}
-
+			<meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset('build/images/favicon.png') }}" />
 		{% endblock %}
 
 		<title>

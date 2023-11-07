@@ -2,6 +2,11 @@
 
 {% block title %}Calenduret - Calendrier {{ calendar.modelCalendar.title }}{% endblock %}
 
+{% block meta %}
+    <meta name="description" content="Un calendrier conçu spécialement pour vous est disponible.">
+	<meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset(calendar.modelCalendar.path) }}" />
+{% endblock %}
+
 {% block body %}
     <section class="show-calendar" style="background: url('{{ asset('build/images/background.jpg') }}')">
         <div class="d-none d-md-block black-filter"></div>
