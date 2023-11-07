@@ -15,7 +15,7 @@ add('writable_dirs', []);
 host('production')
     ->set('hostname', '62.72.16.63')
     ->set('remote_user', 'rduret')
-    ->set('deploy_path', '~/htdocs/calenduret.fr');
+    ->set('deploy_path', '~/htdocs/calenduret.com');
 
 // Hooks
 task('build', function () {
@@ -25,5 +25,5 @@ task('build', function () {
 });
 
 after('deploy:update_code', 'build');
-after('deploy:update_code', 'database:migrate');
+after('deploy:vendors', 'database:migrate');
 after('deploy:failed', 'deploy:unlock');
