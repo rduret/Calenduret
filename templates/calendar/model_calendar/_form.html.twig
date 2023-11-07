@@ -56,7 +56,7 @@
         const pickr = Pickr.create({
             el: '.colorpicker',
             theme: 'monolith',
-            default: '{{ model.color }}',
+            default: '{% if model.color %}{{ model.color }}{% else %}#000{% endif %}',
             comparison: true,
             components: {
                 preview: true,
