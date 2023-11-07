@@ -6,10 +6,11 @@ require 'recipe/symfony.php';
 // Config
 
 set('repository', 'git@github.com:rduret/advent-calendars.git');
+set('keep_releases', 5);
 
-add('shared_files', ['.env.local']);
-add('shared_dirs', ['var/log', 'public/files']);
-add('writable_dirs', ['var/log', 'public/files']);
+add('shared_files', []);
+add('shared_dirs', ['public/files']);
+add('writable_dirs', []);
 
 // Hosts
 host('production')
