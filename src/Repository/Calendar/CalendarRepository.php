@@ -44,14 +44,31 @@ class CalendarRepository extends ServiceEntityRepository
     */
    public function getUnusedCalendars(): array
    {
-        $limitDate = new \DateTime();
-        $limitDate->modify('-2 months');
+        $limitOldDate =  new \DateTime();
+        $limitOldDate->modify('-1 year');
 
-       return $this->createQueryBuilder('c')
-           ->andWhere('c.updatedAt <= :limitDate')
-           ->setParameter('limitDate', $limitDate)
-           ->getQuery()
-           ->getResult()
-       ;
+        $limitUnactiveDate =  new \DateTime();
+        $limitUnactiveDate->modify('-2 days');
+
+        $qb = $this->createQueryBuilder('c');
+        return $qb->where(
+                $qb->expr()->orX(
+                    //Si non utilisé depuis plus d'un an
+                    $qb->expr()->lt('c.updatedAt', ':limitOldDate'),
+                    //Ou si non activé et dispo depuis + de 48h
+                    $qb->expr()->andX(
+                        $qb->expr()->eq('c.isActive', ':isActive'),
+                        $qb->expr()->lt('c.createdAt', ':limitUnactiveDate'),
+                    )
+                )
+            )
+            ->setParameters([
+                'limitOldDate' => $limitOldDate,
+                'isActive' => false,
+                'limitUnactiveDate' => $limitUnactiveDate
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
    }
 }

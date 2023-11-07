@@ -300,7 +300,8 @@ class FrontController extends AbstractController
             //Récupération des nouvelles cases
             $calendarBoxes = [];    //Modèle des cases associées au calendrier 
             $modelBoxes = [];       //Modèle des cases associées au MODELE du calendrier 
-            
+            $calendar->setIsActive(true);
+
             foreach ($calendar->getBoxes() as $box) {
                 $calendarBoxes[] = $box->getModelBox();
             }
