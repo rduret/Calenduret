@@ -401,6 +401,10 @@ footer{
 
 //RESPONSIVE
 @media (max-width: 992px){
+    h1{
+        font-size: 1.75em;
+    }
+
     button.btn-color-to-transparent, a.btn-color-to-transparent {
         height: 50px;
         font-size: 14px;
