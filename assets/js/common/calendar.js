@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     collectionBoxes.collection({
         allow_add: true,
         allow_remove: true,
-        init_with_n_elements: 1,
+        init_with_n_elements: 0,
         max: 25,
         allow_up: false,
         allow_down: false,
