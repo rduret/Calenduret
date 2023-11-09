@@ -18,6 +18,13 @@ document.addEventListener("DOMContentLoaded", function () {
         fade_out: true,
         add: "<button class='btn btn-primary btn-color-to-transparent primary primary-hover small action-button w-100'>Ajouter une case</button>",
         after_init: function () {
+            let modelBoxForms = document.querySelectorAll('.box-form-container');
+            modelBoxForms.forEach(function (element) {
+                element.querySelector('input[type=file]').addEventListener('change', function (event) {
+                    updateBoxLabel(event, element);
+                });
+            });
+
             updateIndexes();
         },
         after_add: function (collection, element) {
@@ -25,8 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const idTemp = generateRandomId(5);
             element[0].dataset.id = idTemp;
 
-            //Required sur l'input du fichier en cas de nouvelle case
+            //Required sur l'input du fichier en cas de nouvelle case + eventListener maj du label
             element[0].querySelector('input[type=file]').required = true;
+
+            element[0].querySelector('input[type=file]').addEventListener('change', function (event) {
+                updateBoxLabel(event, element[0]);
+            });
 
             drawBox(element[0]);
             updateIndexes();
@@ -88,7 +99,10 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 let previewModalContent = previewModal.querySelector('.modal-body');
                 previewModalContent.innerHTML = data;
-                document.getElementsByTagName('video')[0].volume = 0.4;
+                let video = document.getElementsByTagName('video')[0];
+                if (video != undefined) {
+                    video.volume = 0.4;
+                }
             })
         })
 
@@ -172,6 +186,17 @@ function updateIndexes() {
     });
 }
 
+//Met à jour le label de la case
+function updateBoxLabel(event, element) {
+    let filename = event.target.value.substring(event.target.value.lastIndexOf('\\') + 1);
+    if (filename.length > 20) {
+        filename = filename.substring(0, 17) + '...';
+    }
+
+    let modelBoxTitle = element.querySelector('.model-box-title');
+    modelBoxTitle.innerHTML = '<i class="circle-notif fa-solid fa-circle fa-2xs"></i> ' + modelBoxTitle.innerHTML;
+    element.querySelector('.file-title').innerHTML = filename;
+}
 
 //Ajoute une case sur l'aperçu du calendrier
 function drawBox(boxForm) {

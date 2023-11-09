@@ -7,8 +7,8 @@
     {% endif %}
     <div class="box-form-container"  {% if form.vars.value %}data-id="{{ form.vars.value.id }}"{% endif %}>
         <div class="row align-items-baseline">
-            <div class="col-10 pe-0">
-                <div class="model-box-title">Case n°<span class="index"></span> - {{ boxName|u.truncate(20, '...') }}</div>
+            <div class="col-10 pe-0 d-flex flex-row">
+                <div class="model-box-title">Case n°<span class="index"></span> - <span class="file-title">{{ boxName|u.truncate(20, '...') }}</span></div>
             </div>
             {% if form.vars.value %}
                 <div class="col-2">
@@ -45,5 +45,4 @@
         </div>
         <hr/>
     </div>
-
 {% endblock %}
