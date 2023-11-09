@@ -139,21 +139,8 @@
         </div>
     </div>
 
-    <!-- Modal Preview -->
-    <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <div class="spinner-grow" role="status"></div>
-                    <div class="spinner-grow" role="status"></div>
-                    <div class="spinner-grow" role="status"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Modals -->
+    {% include "calendar/model_calendar/preview/_modalPreview.html.twig" %}
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

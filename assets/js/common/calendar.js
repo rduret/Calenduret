@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 let previewModalContent = previewModal.querySelector('.modal-body');
                 previewModalContent.innerHTML = data;
+                document.getElementsByTagName('video')[0].volume = 0.4;
             })
         })
 

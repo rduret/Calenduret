@@ -236,7 +236,7 @@ class ModelCalendarController extends AbstractController
         $uuid = $request->get('uuid');
         $modelBox = $modelBoxRepository->findOneBy(['uuid' => $uuid]);
 
-        $htmlContent = $this->renderView('calendar/model_calendar/preview/previewModal.html.twig', [
+        $htmlContent = $this->renderView('calendar/model_calendar/preview/preview.html.twig', [
             'modelBox' => $modelBox,
         ]);
 

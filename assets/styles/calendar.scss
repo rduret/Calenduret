@@ -146,11 +146,28 @@
     }
 }
 
-.preview{
-    .preview-image{
-        max-width: 100%;
-    }
+#previewModal{
+    --bs-modal-width: fit-content;
+
+    .modal-content{
+        .modal-body{
+            overflow-y: auto;
+            
+            .preview{
+                video{
+                    max-height: 80vh;
+                }
+                
+                img{
+                    max-height: 80vh;
+                    max-width: 100%;
+                }
+            }
+            
+        }
+    }   
 }
+
 
 @media (max-width: 992px){
     .box-form-container{
