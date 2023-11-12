@@ -175,12 +175,10 @@ class FrontController extends AbstractController
 
             //Gestion upload des nouveaux fichier liés aux cases
             $formsModelBoxes = $form->get('modelBoxes');
-            dump($form, $modelCalendar);
 
             foreach ($formsModelBoxes as $formModelBoxes) {
                 $file = $formModelBoxes->get('file')->getData();
                 $modelBox = $formModelBoxes->getData();
-                dump($modelBox);
 
                 if ($file !== null) {
                     try {
@@ -211,7 +209,6 @@ class FrontController extends AbstractController
                 }
             }
 
-            //exit;
 
             $modelCalendarRepository->save($modelCalendar, true);
 
