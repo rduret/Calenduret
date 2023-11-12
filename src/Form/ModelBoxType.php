@@ -23,7 +23,7 @@ class ModelBoxType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '20M',
+                        'maxSize' => '30M',
                         'mimeTypes' => [
                             'image/*',
                             'video/*',
