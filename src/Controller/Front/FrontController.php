@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Calendar\ModelCalendarRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -130,7 +131,7 @@ class FrontController extends AbstractController
     }
 
     #[Route('/mon-espace/calendriers/{uuid}/edit', name: 'user_model_calendar_edit')]
-    public function edit(Request $request, UploadHandler $uploadHandler, ModelCalendarRepository $modelCalendarRepository, string $uuid): Response
+    public function edit(Request $request, UploadHandler $uploadHandler, ModelCalendarRepository $modelCalendarRepository, string $uuid, EntityManagerInterface $em): Response
     {
         $modelCalendar = $modelCalendarRepository->findOneBy(['uuid' => $uuid]);
 
@@ -174,10 +175,12 @@ class FrontController extends AbstractController
 
             //Gestion upload des nouveaux fichier liés aux cases
             $formsModelBoxes = $form->get('modelBoxes');
+            dump($form, $modelCalendar);
 
             foreach ($formsModelBoxes as $formModelBoxes) {
                 $file = $formModelBoxes->get('file')->getData();
                 $modelBox = $formModelBoxes->getData();
+                dump($modelBox);
 
                 if ($file !== null) {
                     try {
@@ -208,6 +211,8 @@ class FrontController extends AbstractController
                 }
             }
 
+            //exit;
+
             $modelCalendarRepository->save($modelCalendar, true);
 
             $this->addFlash(
@@ -215,9 +220,8 @@ class FrontController extends AbstractController
                 'Le modèle a bien été édité'
             );
 
-            return $this->render('front/modelCalendar/edit.html.twig', [
-                'model' => $modelCalendar,
-                'form' => $form
+            return $this->redirectToRoute('user_model_calendar_edit', [
+                'uuid' => $modelCalendar->getUuid(),
             ]);
         }
 
