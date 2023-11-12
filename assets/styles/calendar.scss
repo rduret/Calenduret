@@ -172,6 +172,11 @@
     }   
 }
 
+@media (min-width: 992px){
+    #previewModal .preview img {
+        min-width: 500px;
+    }
+}
 
 @media (max-width: 992px){
     .box-form-container{
