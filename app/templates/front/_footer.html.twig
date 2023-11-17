@@ -1,0 +1,26 @@
+<!-- Footer -->
+<footer id="footer" class="bg-primary py-4 {% if(isHome is defined and isHome == true) %}  {% endif %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <a class="logo" href="{{ path('home') }}">Calenduret</a>
+            </div>
+            <div class="col-md-4 d-flex flex-column text-center justify-content-between">
+                <a href="{{ path('page_cgu') }}">Conditions générales</a>
+                <a href="{{ path('page_mentions') }}">Mentions légales</a>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}">Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}">Se connecter</a>
+                {% endif %}
+            </div>
+            <div class="mt-3 md-md-0 col-md-4 d-flex text-center justify-content-center align-items-center text-white">
+                <p>
+                    © {{ "now"|date('Y')}} Réalisation web : Rémi Duret
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end: Footer -->
+

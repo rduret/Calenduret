@@ -1,29 +1,26 @@
 .history
 .vscode
 ###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/
-/vendor/
+app/config/secrets/prod/prod.decrypt.private.php
+app/public/bundles/
+app/var/
+app/vendor/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
+app/phpunit.xml
+app/.phpunit.result.cache
 ###< phpunit/phpunit ###
 
 ###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
+app/.phpunit.result.cache
+app/phpunit.xml
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/webpack-encore-bundle ###
-/node_modules/
-/public/build/
-/public/files/
-npm-debug.log
-yarn-error.log
+app/node_modules/
+app/public/build/
+app/public/files/
+app/npm-debug.log
+app/yarn-error.log
 ###< symfony/webpack-encore-bundle ###

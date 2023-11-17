@@ -1,0 +1,185 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Calenduret - Édition {{ model.title }}{% endblock %}
+
+{% block body %}
+    <section class="edit-calendar">
+        <div class="container py-2 py-md-4 bg-white">
+            <div class="row justify-content-center">
+                <div class="col-12 p-4 px-md-5">
+                    <div class="row">
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ path('home_user') }}">Mes calendriers</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Édition {{ model.title }}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {{ form_start(form) }}
+                    <div class="row justify-content-center">
+                        <h1 class="mb-3 mt-4 mb-md-5 text-center">Édition - {{ model.title }}</h1>
+                        <div class="row flex-column-reverse flex-md-row py-md-4">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        {{ form_label(form.title, null, { 'label_attr': {'class': 'form-label'} }) }}
+                                        {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+                                        <div class="text-danger">
+                                            {{ form_errors(form.title) }}
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Couleur * (bordure et interieur)</label>
+                                        <div class="colorpicker"></div>
+                                        <br/>
+                                        {{ form_widget(form.color, { 'attr': {'class': 'colorpicker'} }) }}
+                                        <div class="text-danger">
+                                            {{ form_errors(form.color) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-12">
+                                        {% set isRequiredFile = false %}
+                                        {% if model.path == null %}
+                                            {% set isRequiredFile = true %}
+                                        {% endif %}
+
+                                        {{ form_label(form.file, null, { 'label_attr': {'class': 'form-label'} }) }}
+                                        {{ form_widget(form.file, { 'attr': {'class': 'form-control upload-img', 'data-preview-target': '#preview', 'data-cropped-target': '#cropped-file', 'data-cropper-width': '130', 'data-cropper-height': '175'}, required: isRequiredFile }) }}
+                                        <div class="text-danger">
+                                            {{ form_errors(form.file) }}
+                                        </div>
+                                    </div>
+                                    <input id="cropped-file" name="cropped-file" type="hidden">
+                                    <div class="mb-3 col-12 d-flex flex-column">
+                                        {% if null == model.path %}
+                                            <img id="preview" alt="{{ model.title }}" src="https://via.placeholder.com/130x175" class="thumbnail img-responsive mt-2" width="130" height="175">
+                                        {% else %}
+                                            <img id="preview" alt="{{ model.title }}" src="{{ asset(model.path) }}" class="thumbnail img-responsive mt-2" width="130" height="175">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-4 offset-md-1 text-end pe-md-5">
+                                {% if not model.isPublished %}
+                                    <div>
+                                        <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" class="d-inline-block text-center btn-color-to-transparent secondary small my-2 w-100 confirm">Publier</a>
+                                    </div>
+                                {% else %}
+                                    <div>
+                                        <a href="{{ path('user_model_calendar_change_state', {uuid: model.uuid}) }}" data-msg="Attention, si vous dépubliez ce calendrier, les personnes avec qui vous l'avez partagé n'y auront plus accès." class="d-inline-block text-center btn-color-to-transparent warning small my-2 w-100 confirm">Dépublier</a>
+                                    </div>
+                                    <div>
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#shareModal" data-bs-uuid="{{model.uuid }}" class="btn-color-to-transparent info small my-2 w-100">Partager</button>
+                                    </div>
+                                {% endif %}
+                                <div>
+                                    <a href="{{ path('user_model_calendar_delete', {uuid: model.uuid}) }}" data-msg="Supprimer ce calendrier ?" class="d-inline-block text-center btn-color-to-transparent danger small my-2 w-100 confirm">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <button type="submit" class="btn-color-to-transparent secondary small my-2 w-100">Valider</button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row align-items-center px-md-5 py-4">
+                            <div class="col-xxl-5 ps-0">
+                                <div class="calendar-view mx-auto">
+                                    <div class="calendar-container">
+                                        <div id="calendar" class="calendar" style="background-image: url('{{ asset(model.path) }}')">
+                                            {% for modelBox in model.modelBoxes %}
+                                                <div class="model-box" data-id="{{ modelBox.id }}" style="left: {{ modelBox.coordX }}%; top: {{ modelBox.coordY }}%;">
+                                                    <div class="model-box-number">
+                                                        {{ modelBox.position }}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-7 px-md-5 mt-5 mt-xxl-0">
+                                <div class="d-flex">
+                                    <div id="boxes">
+                                        {% form_theme form.modelBoxes
+                                            'calendar/model_calendar/modelBox-theme.html.twig'
+                                            'utils/jquery.collection.html.twig'
+                                        %}
+                                        {{ form_widget(form.modelBoxes) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-color-to-transparent secondary small mb-2 mt-5 w-100">Valider</button>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Partage -->
+    <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered .modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="d-flex align-items-center w-50 mx-auto">
+                        <strong>Génération du lien...</strong>
+                        <div class="spinner-border spinner-border-sm ms-auto" role="status" aria-hidden="true"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    {% include "calendar/model_calendar/preview/_modalPreview.html.twig" %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let upload = new Upload();
+            upload.uploadAndCropPreview({
+                input: ".upload-img",
+            });
+
+            const pickr = Pickr.create({
+                el: '.colorpicker',
+                theme: 'monolith',
+                default: '{{ model.color }}',
+                comparison: true,
+                components: {
+                    preview: true,
+                    opacity: true,
+                    hue: true,
+                }
+            });
+
+            let colorInput = document.querySelector('#front_model_calendar_color');
+
+            pickr.on("change", (color, instance) => {
+                colorInput.value = color.toHEXA().toString();
+                pickr.setColor(color.toHEXA().toString());
+            });
+        });
+    </script>
+
+    <style>
+        .calendar::after{
+            position: absolute;
+            content: "";
+            left: 100%;
+            margin: auto;
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(to left, {{ model.color }}50, {{ model.color }});
+            clip-path: polygon(0px 0px, 100% 6px, 100% 99%, 0px 100%);
+        }
+    </style>
+{% endblock %}

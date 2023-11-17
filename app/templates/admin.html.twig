@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('template_admin') }}
+            {{ encore_entry_link_tags('app_admin') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('template_admin') }}
+            {{ encore_entry_script_tags('app_admin') }}
+        {% endblock %}
+    </head>
+
+    <body data-theme="dark" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
+        <div class="wrapper">
+            {% include "admin/_sidebar.html.twig" %}
+            <div class="main">
+                {% block header %}
+                    {% include "admin/_header.html.twig" %}
+                {% endblock %}
+                <main class="content">
+                    <div class="container-fluid p-0">
+                        {% block body %}{% endblock %}
+                    </div>
+                </main>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% for type, messages in app.session.flashbag.all() %}
+            {% for key, message in messages %}
+            notyf.open({
+                type: '{{ type }}',
+                message: "{%autoescape false%}{{ message|trans }}{%endautoescape%}",
+                dismissible : true
+            });
+            {% endfor %}
+            {% endfor %}
+        });
+    </script>
+</html>

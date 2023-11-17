@@ -1,0 +1,60 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Calendrier {{ model.title }} - Gestion des cases{% endblock %}
+
+{% block body %}
+    <div class="container-fluid p-0">
+        <h1 class="mb-4">{% trans %}Gestion des cases{% endtrans %}</h1>
+        <hr>
+        {{ form_start(form) }}
+        <div class="row align-items-center">
+            <div class="col-xxl-6">
+                <div class="calendar-view mx-auto">
+                    <h2 class="mb-3 text-center calendar-title">{% trans %}Calendrier{% endtrans %} {{ model.title }}</h2>
+                    <div class="calendar-container">
+                        <div id="calendar" class="calendar" style="background-image: url('{{ asset(model.path) }}')">
+                            {% for modelBox in model.modelBoxes|sort((a, b) => a.position <=> b.position) %}
+                                <div class="model-box" data-id="{{ modelBox.id }}" style="left: {{ modelBox.coordX }}%; top: {{ modelBox.coordY }}%;">
+                                    <div class="model-box-number">
+                                        {{ modelBox.position + 1 }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-6 px-5 mt-5 mt-xxl-0">
+                <div id="boxes">
+                    {% form_theme form.modelBoxes
+                        'calendar/model_calendar/modelBox-theme.html.twig'
+                        'utils/jquery.collection.html.twig'
+                    %}
+                    {{ form_widget(form.modelBoxes) }}
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary w-100 mt-4">Valider</button>
+        
+        {{ form_end(form) }}
+    </div>
+
+    <!-- Modals -->
+    {% include "calendar/model_calendar/preview/_modalPreview.html.twig" %}
+
+
+    <style>
+        .calendar::after{
+            position: absolute;
+            content: "";
+            left: 100%;
+            margin: auto;
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(to left, {{ model.color }}50, {{ model.color }});
+            clip-path: polygon(0px 0px, 100% 6px, 100% 99%, 0px 100%);
+        }
+    </style>
+
+{% endblock %}

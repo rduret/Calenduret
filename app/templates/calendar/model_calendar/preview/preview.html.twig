@@ -1,0 +1,13 @@
+<div class="preview">
+    {% if modelBox.type == 'image' %}
+        {% include "calendar/model_calendar/preview/_modal-image.html.twig" %}
+    {% elseif modelBox.type == 'video' %}
+        {% include "calendar/model_calendar/preview/_modal-video.html.twig" %}
+    {% elseif modelBox.type == 'audio' %}
+        {% include "calendar/model_calendar/preview/_modal-audio.html.twig" %}
+    {% elseif modelBox.type == 'application' %}
+        {% include "calendar/model_calendar/preview/_modal-pdf.html.twig" %}
+    {% else %}
+        <div class="text-center">Impossible d'afficher le fichier</div>
+    {% endif %}
+</div>

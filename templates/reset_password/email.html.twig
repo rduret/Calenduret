@@ -1,9 +1,0 @@
-<h1>Bonjour</h1>
-
-<p>Une demande de réinitialisation de mot de passe a été effectué pour votre compte Calenduret. Si vous n'avez pas fait cette demande veuillez ignorer ce mail, pour réinitialiser votre mot de passe cliquez sur le lien ci-dessous :</p>
-
-<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
-
-<p>Le lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
-
-<p>L'équipe Calenduret</p>

@@ -1,0 +1,190 @@
+.calendar-view{
+    max-width: 700px;
+}
+
+.calendar-container{
+    box-sizing: border-box;
+    padding-top: calc(175 / 130 * 100%); /* Calcul du ratio 130x200 */
+    position: relative;
+}
+
+.calendar-title{
+    &:after{
+        display: block;
+        content: '';
+        height: 2px;
+        width: 30px;
+        margin: auto;
+        margin-top: 10px;
+        background: #fff;
+    }
+}
+
+.calendar{
+    position: absolute;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.collection-boxes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    align-items: center;
+}
+
+.box-form-container{
+    width: 28%;
+    margin-right: 5%;
+
+    label, input, a{
+        font-size: 13px;
+    }
+}
+
+.model-box{
+    touch-action: none;
+}
+
+.model-box, .box{
+    position: absolute;
+    border: rgb(0, 0, 0, 0.5) solid 2px;
+    height: 12%;
+    width: 12%;
+}
+
+.model-box-title{
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.model-box-number{
+    position: absolute;
+    left: 15%;
+    font-size: 1.2em;
+    color: #fff;
+    text-shadow:
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px  1px 0 black,
+        1px  1px 0 black;
+}
+
+.show-calendar{
+    background-size: cover !important;
+
+    h1{
+        font-family: 'DancingScript';
+    }
+
+    .calendar-view{
+        max-width: 500px;
+    }
+    
+    .box{
+        cursor: pointer;
+    }
+
+    .calendar-bg{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+    }
+
+    .background{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .box-front {
+        width: 100%;
+        height: 100%;
+        transform-origin: left;
+        position: absolute;
+        z-index: 10;
+        transition: 2s;
+        transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
+    }
+      
+    .box-inside {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .preview-button{
+            button{
+                display: none;
+                background: none;
+                color: inherit;
+                border: none;
+                padding: 0;
+                font: inherit;
+                cursor: pointer;
+                outline: inherit;
+            }
+        }
+    }
+
+    .box.open{
+        cursor: default;
+
+        .box-front{
+            transform: rotateY(-90deg);
+        }
+
+        .box-inside{
+            box-shadow: inset 1px 0px 0px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .preview-button button{
+            display: block;
+        }
+    }
+}
+
+#previewModal{
+    --bs-modal-width: fit-content;
+
+    .modal-content{
+        .modal-body{
+            overflow-y: auto;
+            
+            .preview{
+                video{
+                    max-height: 80vh;
+                }
+                
+                img{
+                    max-height: 80vh;
+                    max-width: 100%;
+                }
+            }
+            
+        }
+    }   
+}
+
+@media (min-width: 992px){
+    #previewModal .preview img {
+        // min-width: 500px;
+    }
+}
+
+@media (max-width: 992px){
+    .box-form-container{
+        width: 40%;
+        margin-right: 10%;
+    
+        label, input, a{
+            font-size: 13px;
+        }
+    }
+}

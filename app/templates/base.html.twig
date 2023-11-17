@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		
+        {% block meta %}
+			<meta name="description" content="Créez et personnalisez votre propre calendrier de l'Avent.">
+			<meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset('build/images/favicon.png') }}" />
+		{% endblock %}
+
+		<title>
+			{% block title %}Calenduret{% endblock %}
+		</title>
+		<link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
+
+
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+
+		<script src="https://www.google.com/recaptcha/api.js?render=6Lc14vYoAAAAAPG3TCf3ylWOhqTI3sAAXbU8djG3"></script>
+	</head>
+	<body>
+		<div class="content">
+			{% include "front/_header.html.twig" %}
+			{% block body %}{% endblock %}
+		</div>
+		{% include "front/_footer.html.twig"%}
+	</body>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+{% for type, messages in app.session.flashbag.all() %}
+{% for key, message in messages %}
+notyf.open({type: '{{ type }}', message: "{% autoescape false %}
+{{ message|trans }}{% endautoescape %}", dismissible: true});{% endfor %}
+{% endfor %}
+});
+	</script>
+</html>
